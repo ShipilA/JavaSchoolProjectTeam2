@@ -1,6 +1,5 @@
 package com.db.edu.server;
 
-import com.db.edu.ServerImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +22,10 @@ public class ServerTest implements SysoutCaptureAndAssertionAbility {
 
     @Test
     public void shouldReturnHistory() throws IOException {
-        ServerImpl.getRequest("//snd Hello, world!");
-        ServerImpl.getRequest("//hist");
-        ServerImpl.sendResponse();
+        ServerImpl TestServer = new ServerImpl();
+        TestServer.getRequest("//snd Hello, world!");
+        TestServer.getRequest("//hist");
+        TestServer.sendResponse();
 
         assertSysoutContains("Hello, world!");
     }
