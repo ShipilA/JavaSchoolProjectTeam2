@@ -1,5 +1,6 @@
 package com.db.edu.server;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,10 +9,10 @@ import java.util.logging.Logger;
 
 public class Chat{
     public static void main(String[] args) {
-        System.out.println("Program starting...");
+        System.out.println("Chat server starting...");
         try {
             ServerSocket ss = new ServerSocket(9222);
-            System.out.println("Server starting...");
+            ListSocket.addNewRoomMessagesDB(new File("Room0.csv"));
             while(true){
                 Socket s = ss.accept(); // ожидание новых клиентов
                 SocketThread socketThread = new SocketThread(s);

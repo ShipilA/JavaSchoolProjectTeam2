@@ -2,9 +2,7 @@ package com.db.edu.server;
 
 
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Date;
-import java.util.Locale;
 
 import static java.lang.System.lineSeparator;
 
@@ -13,15 +11,16 @@ public class Message {
     private String userName;
     private String text;
 
+    Message(){}
     public Message(String name, String messageText) {
         time = timeStamp();
         userName = name;
         text = messageText;
 
     }
-
-    public Message(String csvLine) {
-        fromCSVLine(csvLine);
+    public Message(String incommingMessage) {
+        time = timeStamp();
+        fromIncommingMessage(incommingMessage);
     }
 
     public String toString() {
@@ -39,9 +38,16 @@ public class Message {
         text = items[2];
     }
 
+    public void fromIncommingMessage(String message){
+        String[] items = message.split("\t");
+        userName = items[0];
+        text = items[1];
+    }
+
     private String timeStamp() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return formatter.format(date);
     }
+
 }

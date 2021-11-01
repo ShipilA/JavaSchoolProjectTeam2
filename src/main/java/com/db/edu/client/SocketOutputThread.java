@@ -13,6 +13,7 @@ public class SocketOutputThread implements Runnable {
     private boolean exit = true;
     private String inMessage = null;
     private String outMessage = null;
+    private String clientName = "";
 
     public SocketOutputThread(Socket s) {
         this.s = s;
@@ -21,11 +22,18 @@ public class SocketOutputThread implements Runnable {
     @Override
     public void run() {
         try {
+
+            System.out.println();
+
+            Scanner in = new Scanner(System.in);
+            System.out.print("Please enter your name: ");
+            clientName = in.nextLine();
+
             out = new PrintWriter(s.getOutputStream());
             BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
             while (true) {
                 outMessage = buffer.readLine();
-                out.println(outMessage);
+                out.println(clientName+"\t"+outMessage);
                 out.flush();
             }
         } catch (IOException ex) {

@@ -1,5 +1,7 @@
 package com.db.edu.server;
 
+import com.db.edu.server.database.RoomMessagesDB;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -17,6 +19,7 @@ public class SocketThread implements Runnable {
     private String inMessage = null;
     private String outMessage = null;
     private ArrayList<Socket> listSocket = null;
+    private RoomMessagesDB roomMessagesDB = null;
 
     public SocketThread(Socket s) {
         this.s = s;
@@ -25,16 +28,23 @@ public class SocketThread implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("User connect...");
+            System.out.println("User connected!");
             ListSocket.addSocketToList(s); //  добавление текущого сокета с глобальной список сокетов
             in = new Scanner(s.getInputStream());
             while (exit) {
                 inMessage = in.nextLine();
+                Message newMessage = new Message(inMessage);
+//                for (:
+//                     ) {
+//
+//                }
+//                roomMessagesDB = ListSocket.getListRoomMessagesDB().get(0);
+//                roomMessagesDB.saveMessage(newMessage);
                 listSocket = ListSocket.getListSocket();
                 for (Socket socket : listSocket) { // отсылка сообщения всем сокетам\клиентам
                     if (!socket.equals(s)) {
                         out = new PrintWriter(socket.getOutputStream());
-                        out.println(inMessage);
+                        out.println(newMessage.toString());
                         out.flush();
                     }
                 }
@@ -43,7 +53,7 @@ public class SocketThread implements Runnable {
                 }
             }
             ListSocket.removeSocketWithList(s); // если поток завершается то сокет клиента удаляется из списка сокетов
-            System.out.println("User disconnect...");
+            System.out.println("User disconnected!");
         } catch (IOException ex) {
             try {
                 s.close();
