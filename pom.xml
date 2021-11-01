@@ -52,6 +52,13 @@
                 <version>1.7.2</version>
                 <dependencies>
                     <dependency>
+                        <groupId>org.assertj</groupId>
+                        <artifactId>assertj-core</artifactId>
+                        <!-- use 2.9.1 for Java 7 projects -->
+                        <version>3.21.0</version>
+                        <scope>test</scope>
+                    </dependency>
+                    <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
                         <version>0.15</version>
