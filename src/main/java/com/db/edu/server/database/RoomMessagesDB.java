@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
+import static java.lang.System.lineSeparator;
 import static java.nio.file.Files.writeString;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.WRITE;
@@ -17,7 +18,7 @@ import static java.nio.file.StandardOpenOption.WRITE;
 public class RoomMessagesDB implements DataBase {
     private File tableFile;
 
-    public RoomMessagesDB(File roomMessageTable){
+    public RoomMessagesDB(File roomMessageTable) {
         tableFile = roomMessageTable;
     }
 
@@ -31,20 +32,22 @@ public class RoomMessagesDB implements DataBase {
         return getDataFromTable();
     }
 
-    private void appendDataToTable(String data){
+    private void appendDataToTable(String data) {
         try {
-            Files.write(tableFile.toPath(), data.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            if (!tableFile.exists()) {
+                tableFile.createNewFile();
+            }
+            Files.write(tableFile.toPath(), data.getBytes(StandardCharsets.UTF_8), WRITE, APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private String getDataFromTable(){
+    private String getDataFromTable() {
         StringBuilder out = new StringBuilder();
         try {
             Files.lines(tableFile.toPath()) //readAllLines
-                    .forEach(s -> out.append(new Message(s).toString()));
-
+                    .forEach(s -> out.append(new Message(s)).append(lineSeparator()));
         } catch (IOException e) {
             e.printStackTrace();
         }
