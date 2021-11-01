@@ -9,8 +9,11 @@ import com.db.edu.SysoutCaptureAndAssertionAbility;
 import java.io.IOException;
 
 public class ServerTest implements SysoutCaptureAndAssertionAbility {
+    private Server testServer;
+
     @BeforeEach
-    public void setUpSystemOut() {
+    public void setUpSystemOut() throws IOException {
+        testServer = new ServerImpl();
         resetOut();
         captureSysout();
     }
@@ -21,11 +24,10 @@ public class ServerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldReturnHistory() {
-        ServerImpl TestServer = new ServerImpl();
-        TestServer.getRequest("//snd Hello, world!");
-        TestServer.getRequest("//hist");
-        TestServer.sendResponse();
+    public void shouldReturnHistory() throws IOException {
+        testServer.getRequest("//snd Hello, world!");
+        testServer.getRequest("//hist");
+        testServer.sendResponse();
 
         assertSysoutContains("Hello, world!");
     }
