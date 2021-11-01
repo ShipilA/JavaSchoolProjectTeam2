@@ -7,11 +7,6 @@ import java.util.List;
 public interface DataBase {
     public void saveMessage(Message message);
 
-    public List<Message> getAllMessages();
+    public String getAllMessages();
 
-    public Message getMessagesWithId(int index);
-
-    public void saveDataToTable();
-
-    public void loadDataFromTable();
 }
