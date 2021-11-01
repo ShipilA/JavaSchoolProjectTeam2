@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class ServerTest implements SysoutCaptureAndAssertionAbility {
     @BeforeEach
-    public void setUpSystemOut() throws IOException {
+    public void setUpSystemOut() {
         resetOut();
         captureSysout();
     }
@@ -21,7 +21,7 @@ public class ServerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldReturnHistory() throws IOException {
+    public void shouldReturnHistory() {
         ServerImpl TestServer = new ServerImpl();
         TestServer.getRequest("//snd Hello, world!");
         TestServer.getRequest("//hist");
