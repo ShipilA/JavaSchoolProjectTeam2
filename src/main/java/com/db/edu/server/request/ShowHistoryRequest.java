@@ -6,8 +6,8 @@ public class ShowHistoryRequest implements Request{
         return message.equals("/hist");
     }
 
+    //TODO add realisation
     @Override
     public void handleResponse() {
-
     }
 }

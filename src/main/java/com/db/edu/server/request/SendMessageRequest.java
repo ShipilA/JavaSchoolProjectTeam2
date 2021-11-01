@@ -6,6 +6,7 @@ public class SendMessageRequest implements Request{
         return message.startsWith("/snd ");
     }
 
+    //TODO add realisation
     @Override
     public void handleResponse() {
 
