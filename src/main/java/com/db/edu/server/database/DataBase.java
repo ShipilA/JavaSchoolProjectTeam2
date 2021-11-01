@@ -10,4 +10,8 @@ public interface DataBase {
     public List<Message> getAllMessages();
 
     public Message getMessagesWithId(int index);
+
+    public void saveDataToTable();
+
+    public void loadDataFromTable();
 }
