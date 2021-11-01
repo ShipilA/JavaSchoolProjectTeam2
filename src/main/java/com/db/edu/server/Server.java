@@ -1,4 +1,8 @@
 package com.db.edu.server;
 
-public class Server {
+public interface Server {
+
+    void getRequest(String message);
+
+    String sendResponse();
 }
