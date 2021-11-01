@@ -30,7 +30,5 @@ public class ServerTest implements SysoutCaptureAndAssertionAbility {
         testServer.sendResponse();
 
         assertSysoutContains("Hello, world!");
-
-
     }
 }
