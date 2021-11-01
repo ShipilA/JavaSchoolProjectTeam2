@@ -1,13 +1,26 @@
 package com.db.edu.server.request;
 
-public class ShowHistoryRequest implements Request{
+import com.db.edu.server.exception.ServerException;
+
+public class ShowHistoryRequest implements Request {
+    private static final String HISTORY_PREFIX = "/hist";
+
+    private final String message;
+
+    public ShowHistoryRequest(String message) {
+        this.message = message;
+    }
+
     @Override
-    public boolean isResponseOfThisType(String message) {
-        return message.equals("/hist");
+    public boolean isResponseOfThisType() {
+        return message.equals(HISTORY_PREFIX);
     }
 
     //TODO add realisation
     @Override
-    public void handleResponse() {
+    public void handleResponse() throws ServerException {
+        if (!isResponseOfThisType()) {
+            throw new ServerException("Wrong type of response");
+        }
     }
 }

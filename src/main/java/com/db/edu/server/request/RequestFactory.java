@@ -4,12 +4,12 @@ import com.db.edu.server.exception.ServerException;
 
 public class RequestFactory {
     public Request getRequest(String message) throws ServerException {
-        Request request = new ShowHistoryRequest();
-        if (request.isResponseOfThisType(message)) {
+        Request request = new ShowHistoryRequest(message);
+        if (request.isResponseOfThisType()) {
             return request;
         } else {
-            request = new SendMessageRequest();
-            if (request.isResponseOfThisType(message)) {
+            request = new SendMessageRequest(message);
+            if (request.isResponseOfThisType()) {
                 return request;
             }
         }
