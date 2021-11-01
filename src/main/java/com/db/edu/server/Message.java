@@ -13,7 +13,7 @@ public class Message {
     private String userName;
     private String text;
 
-    Message(String name, String messageText) {
+    public Message(String name, String messageText) {
         time = timeStamp();
         userName = name;
         text = messageText;

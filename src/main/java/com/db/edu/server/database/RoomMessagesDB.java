@@ -17,7 +17,7 @@ import static java.nio.file.StandardOpenOption.WRITE;
 public class RoomMessagesDB implements DataBase {
     private File tableFile;
 
-    RoomMessagesDB(File roomMessageTable){
+    public RoomMessagesDB(File roomMessageTable){
         tableFile = roomMessageTable;
     }
 
