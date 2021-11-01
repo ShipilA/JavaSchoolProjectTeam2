@@ -1,6 +1,5 @@
 package com.db.edu.server.request;
 
-import com.db.edu.server.Message;
 import com.db.edu.server.exception.ServerException;
 
 public class SendMessageRequest implements Request {
@@ -14,14 +13,14 @@ public class SendMessageRequest implements Request {
     }
 
     @Override
-    public boolean isResponseOfThisType() {
+    public boolean isRequestOfThisType() {
         return message.startsWith(SEND_PREFIX);
     }
 
     //TODO add realisation
     @Override
     public void handleResponse() throws ServerException {
-        if (!isResponseOfThisType()) {
+        if (!isRequestOfThisType()) {
             throw new ServerException("Wrong type of response");
         }
         if (message.substring(SEND_PREFIX.length()).length() > MAX_LENGTH) {

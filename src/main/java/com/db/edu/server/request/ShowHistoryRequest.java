@@ -12,14 +12,14 @@ public class ShowHistoryRequest implements Request {
     }
 
     @Override
-    public boolean isResponseOfThisType() {
+    public boolean isRequestOfThisType() {
         return message.equals(HISTORY_PREFIX);
     }
 
     //TODO add realisation
     @Override
     public void handleResponse() throws ServerException {
-        if (!isResponseOfThisType()) {
+        if (!isRequestOfThisType()) {
             throw new ServerException("Wrong type of response");
         }
     }

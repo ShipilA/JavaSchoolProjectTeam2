@@ -10,16 +10,12 @@ import com.db.edu.server.request.RequestFactory;
 import java.io.File;
 
 public class ServerController {
-    Listener listener;
     Request request;
 
     DataBase roomMessagesDataBase;
 
     public ServerController() {
-        this.listener = new Listener();
         this.roomMessagesDataBase = new RoomMessagesDB(new File("data.csv"));
-        Thread thread = new Thread(listener);
-        thread.start();
     }
 
     public void getRequest(String message) throws ServerException {

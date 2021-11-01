@@ -5,11 +5,11 @@ import com.db.edu.server.exception.ServerException;
 public class RequestFactory {
     public Request getRequest(String message) throws ServerException {
         Request request = new ShowHistoryRequest(message);
-        if (request.isResponseOfThisType()) {
+        if (request.isRequestOfThisType()) {
             return request;
         } else {
             request = new SendMessageRequest(message);
-            if (request.isResponseOfThisType()) {
+            if (request.isRequestOfThisType()) {
                 return request;
             }
         }

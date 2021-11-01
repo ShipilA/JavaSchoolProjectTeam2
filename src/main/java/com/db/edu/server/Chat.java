@@ -1,26 +1,28 @@
 package com.db.edu.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Chat{
+    static final Logger logger = LoggerFactory.getLogger(ServerImpl.class);
+
     public static void main(String[] args) {
-        System.out.println("Chat server starting...");
         try {
-            ServerSocket ss = new ServerSocket(9222);
-            ListSocket.addNewRoomMessagesDB(new File("Room0.csv"));
+            ServerSocket serverSocket = new ServerSocket(9222);
             while(true){
-                Socket s = ss.accept(); // ожидание новых клиентов
-                SocketThread socketThread = new SocketThread(s);
-                Thread t = new Thread(socketThread);
-                t.start(); // запуск нового потока для каждого нового клиента
+                Socket socket = serverSocket.accept();
+                SocketThread socketThread = new SocketThread(new User(socket), new UserList());
+                Thread thread = new Thread(socketThread);
+                thread.start();
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            //FIXME log to file
+           logger.error("Exception", e);
         }
     }
 }
