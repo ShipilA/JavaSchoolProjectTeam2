@@ -1,10 +1,10 @@
 package com.db.edu.client;
-
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.ServerSocket;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SocketInputThread implements Runnable {
 
