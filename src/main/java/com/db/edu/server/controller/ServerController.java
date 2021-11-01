@@ -5,6 +5,13 @@ import com.db.edu.server.request.Request;
 import com.db.edu.server.request.RequestFactory;
 
 public class ServerController {
+    Listener listener;
+
+    public ServerController() {
+        this.listener = new Listener();
+        Thread thread = new Thread(listener);
+        thread.start();
+    }
 
     public void getRequest(String message) throws ServerException {
         RequestFactory requestFactory = new RequestFactory();
@@ -15,6 +22,6 @@ public class ServerController {
 
     //TODO add realisation
     public String sendResponse() {
-        return null;
+        return "";
     }
 }
