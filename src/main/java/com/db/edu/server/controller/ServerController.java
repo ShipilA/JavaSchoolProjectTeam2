@@ -6,6 +6,7 @@ import com.db.edu.server.request.RequestFactory;
 
 public class ServerController {
     Listener listener;
+    Request request;
 
     public ServerController() {
         this.listener = new Listener();
@@ -15,12 +16,11 @@ public class ServerController {
 
     public void getRequest(String message) throws ServerException {
         RequestFactory requestFactory = new RequestFactory();
-        Request request = requestFactory.getRequest(message);
+        request = requestFactory.getRequest(message);
         request.handleResponse();
     }
 
 
-    //TODO add realisation
     public String sendResponse() {
         return "";
     }
