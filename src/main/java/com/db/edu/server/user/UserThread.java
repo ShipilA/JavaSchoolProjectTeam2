@@ -1,6 +1,6 @@
 package com.db.edu.server.user;
 
-import com.db.edu.server.Message;
+import com.db.edu.server.message.Message;
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.rooms.Room;
 

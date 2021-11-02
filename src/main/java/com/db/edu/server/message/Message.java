@@ -1,4 +1,4 @@
-package com.db.edu.server;
+package com.db.edu.server.message;
 
 
 import java.text.SimpleDateFormat;
@@ -11,16 +11,22 @@ public class Message {
     private static final int MSGMAXLEN = 150;
     private String time;
     private String userName = "";
-    private String key;
     private String data;
+    protected String key;
 
-    public Message() {
+    public Message(String uName, String uData) {
+        time = timeStamp();
+        userName = uName;
+        data = uData;
     }
 
     public Message(String incomingMessage) {
         time = timeStamp();
         fromIncomingMessage(incomingMessage);
     }
+
+    public Message() {}
+
 
     public String getData() {
         return data;
