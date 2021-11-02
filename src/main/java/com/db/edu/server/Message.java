@@ -12,8 +12,7 @@ public class Message {
     private String key;
     private String data;
 
-    public Message() {
-    }
+    public Message() {}
 
     public Message(String incommingMessage) {
         time = timeStamp();
