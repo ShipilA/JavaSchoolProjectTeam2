@@ -9,9 +9,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class SocketInputThread implements Runnable {
-    private static Logger log = LoggerFactory.getLogger(Chat.class);
+    private static final Logger log = LoggerFactory.getLogger(SocketInputThread.class);
     private final Socket socket;
-    static Logger log = LoggerFactory.getLogger(SocketInputThread.class);
 
     public SocketInputThread(Socket socket) {
         this.socket = socket;
