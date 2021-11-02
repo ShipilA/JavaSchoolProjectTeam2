@@ -19,9 +19,7 @@ public class UserThread implements Runnable {
         try {
             room.addUserToList(user);
             while (!Thread.interrupted()) {
-                Message message = new Message(user.getMessage());
-                room.saveMessage(message);
-                room.sendMessageToAllOtherUsers(user, message.toString());
+                processMessages(new Message(user.getMessage()));
             }
 
         } catch (ServerException ex) {
@@ -30,5 +28,16 @@ public class UserThread implements Runnable {
             room.removeUserFromList(user);
 //            user.close();
         }
+    }
+
+    public void processMessages(Message msg) throws ServerException {
+        if (msg.isKey("/snd")){
+            room.saveMessage(msg);
+            room.sendMessageToAllOtherUsers(user, msg.toString());
+        }
+        if (msg.isKey("/hist")){
+            room.sendMessageHistoryToUsers(user);
+        }
+
     }
 }

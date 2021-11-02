@@ -32,6 +32,10 @@ public class Room {
         roomMessages.saveMessage(msg);
     }
 
+    public synchronized String messageHistory(){
+        return roomMessages.getAllMessages();
+    }
+
     public synchronized void addUserToList(User user) {
         users.add(user);
     }
@@ -49,4 +53,11 @@ public class Room {
             }
         }
     }
+
+    public synchronized void sendMessageHistoryToUsers(User user) throws ServerException {
+        PrintWriter out = new PrintWriter(user.getOutputStream());
+        out.println(messageHistory());
+        out.flush();
+    }
+
 }
