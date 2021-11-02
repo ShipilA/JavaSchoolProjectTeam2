@@ -1,7 +1,11 @@
 package com.db.edu.server.user;
 
+import com.db.edu.server.MessageFacade;
+import com.db.edu.server.message.ChRoomMessage;
+import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.exception.ServerException;
+import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.rooms.Room;
 
 public class UserThread implements Runnable {
@@ -18,9 +22,9 @@ public class UserThread implements Runnable {
     public void run() {
         try {
             room.addUserToList(user);
-
+            MessageFacade messageFacade = new MessageFacade();
             while (!Thread.interrupted()) {
-                processMessages(new Message(user.getMessage()));
+                processMessages(messageFacade.processIncomingMessage(user.getMessage(), user.getName()));
             }
 
         } catch (ServerException ex) {
@@ -32,16 +36,14 @@ public class UserThread implements Runnable {
     }
 
     public void processMessages(Message msg) throws ServerException {
-        if (msg.isKey("/snd")){
+        if (msg instanceof SendMessage){
             room.saveMessage(msg);
             room.sendMessageToAllOtherUsers(user, msg.toString());
         }
-        if (msg.isKey("/hist")){
+        if (msg instanceof HistoryMessage){
             room.sendMessageHistoryToUser(user);
         }
-        if (msg.isKey("/chid")){
-            room.sendMessageHistoryToUser(user);
-        }
+        if (msg instanceof ChRoomMessage){}
 
     }
 }
