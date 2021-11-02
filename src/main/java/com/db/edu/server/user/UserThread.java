@@ -1,12 +1,11 @@
 package com.db.edu.server.user;
 
 import com.db.edu.server.MessageFacade;
-import com.db.edu.server.message.ChRoomMessage;
-import com.db.edu.server.message.HistoryMessage;
-import com.db.edu.server.message.Message;
+import com.db.edu.server.message.*;
 import com.db.edu.server.exception.ServerException;
-import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.rooms.Room;
+
+import java.util.Objects;
 
 public class UserThread implements Runnable {
 
@@ -28,6 +27,15 @@ public class UserThread implements Runnable {
             }
 
         } catch (ServerException ex) {
+            System.out.println(ex.getMessage());
+            if (Objects.equals(ex.getMessage(),"User message length > 150")) {
+                try {
+                    room.sendMessageToUser(user, ex.getMessage());
+                } catch (ServerException e) {
+                    e.printStackTrace();
+                    System.out.println(ex.getMessage());
+                }
+            }
             //TODO add logger
         } finally {
             room.removeUserFromList(user);
@@ -43,7 +51,11 @@ public class UserThread implements Runnable {
         if (msg instanceof HistoryMessage){
             room.sendMessageHistoryToUser(user);
         }
-        if (msg instanceof ChRoomMessage){}
+        if (msg instanceof SetUserNameMessage){
+            user.setName(msg.getData());
+        }
 
     }
+
+
 }

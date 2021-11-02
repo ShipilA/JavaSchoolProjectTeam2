@@ -60,4 +60,10 @@ public class Room {
         out.flush();
     }
 
+    public synchronized void sendMessageToUser(User user, String msg) throws ServerException {
+        PrintWriter out = new PrintWriter(user.getOutputStream());
+        out.println(msg);
+        out.flush();
+    }
+
 }
