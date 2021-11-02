@@ -1,6 +1,7 @@
 package com.db.edu.server.user;
 
 import com.db.edu.server.MessageFacade;
+import com.db.edu.server.MessageFacadeError;
 import com.db.edu.server.message.*;
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.rooms.Room;
@@ -23,19 +24,24 @@ public class UserThread implements Runnable {
             room.addUserToList(user);
             MessageFacade messageFacade = new MessageFacade();
             while (!Thread.interrupted()) {
-                processMessages(messageFacade.processIncomingMessage(user.getMessage(), user.getName()));
+                try {
+                    processMessages(messageFacade.processIncomingMessage(user.getMessage(), user.getName()));
+                } catch (MessageFacadeError ex){
+                    if (Objects.equals(ex.getMessage(),"User message length > 150")) {
+                        System.out.println(ex.getMessage());
+                        try {
+                            room.sendMessageToUser(user, ex.getMessage());
+                        } catch (ServerException e) {
+                            e.printStackTrace();
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                }
             }
 
         } catch (ServerException ex) {
             System.out.println(ex.getMessage());
-            if (Objects.equals(ex.getMessage(),"User message length > 150")) {
-                try {
-                    room.sendMessageToUser(user, ex.getMessage());
-                } catch (ServerException e) {
-                    e.printStackTrace();
-                    System.out.println(ex.getMessage());
-                }
-            }
+
             //TODO add logger
         } finally {
             room.removeUserFromList(user);
