@@ -3,6 +3,7 @@ package com.db.edu.server;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import static java.lang.System.lineSeparator;
 
@@ -27,6 +28,10 @@ public class Message {
         return key;
     }
 
+    public boolean isKey(String k){
+        return Objects.equals(key,k);
+    }
+
     public String toString() {
         return String.format("%s %s" + lineSeparator() + "%s", time, userName, data);
     }
@@ -49,7 +54,9 @@ public class Message {
             key = items[0];
             data = items[1];
         } else if (items.length>0){
+            key = "";
             data = items[0];
+
         }
     }
 
