@@ -32,10 +32,6 @@ public class Room {
         users.add(user);
     }
 
-    public synchronized void sendMessageToAllOtherUsers(User user) throws ServerException {
-        sendMessageToAllOtherUsers(user, user.getMessage());
-    }
-
     public synchronized void sendMessageToAllOtherUsers(User user, String message) throws ServerException {
         for (User receiver : users) {
             if (!user.equals(receiver)) {
