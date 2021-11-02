@@ -19,7 +19,7 @@ public class SocketOutputThread implements Runnable {
         try {
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             Scanner in = new Scanner(System.in);
-            while (true) {
+            while (!Thread.interrupted()) {
                 String outMessage = in.nextLine();
                 out.println(outMessage);
                 out.flush();

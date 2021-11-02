@@ -18,7 +18,7 @@ public class SocketInputThread implements Runnable {
     public void run() {
         try {
             Scanner scanner = new Scanner(socket.getInputStream());
-            while (true) {
+            while (!Thread.interrupted()) {
                 if (scanner.hasNext()) {
                     String message = scanner.nextLine();
                     System.out.println(message);
