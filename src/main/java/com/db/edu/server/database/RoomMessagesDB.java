@@ -18,8 +18,8 @@ import static java.nio.file.StandardOpenOption.WRITE;
 public class RoomMessagesDB implements DataBase {
     private File tableFile;
 
-    public RoomMessagesDB(File roomMessageTable) {
-        tableFile = roomMessageTable;
+    public RoomMessagesDB(String roomName) {
+        tableFile = new File(roomName + ".csv");
     }
 
     @Override

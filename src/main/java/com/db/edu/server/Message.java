@@ -12,6 +12,8 @@ public class Message {
     private String key;
     private String data;
 
+    Message() {}
+
     public Message(String name, String messageText) {
         time = timeStamp();
         userName = name;
@@ -21,7 +23,7 @@ public class Message {
 
     public Message(String incommingMessage) {
         time = timeStamp();
-        fromIncomingMessage(incommingMessage);
+        fromIncommingMessage(incommingMessage);
     }
 
     public String getData() {
@@ -47,7 +49,7 @@ public class Message {
         this.data = items[2];
     }
 
-    public void fromIncomingMessage(String message) {
+    public void fromIncommingMessage(String message) {
         String[] items = message.split(" ",1);
         userName = items[0];
         data = items[1];

@@ -18,7 +18,7 @@ public class Room {
 
     public Room(String name) {
         this.name = name;
-        roomMessages = new RoomMessagesDB(new File(name + ".csv"));
+        roomMessages = new RoomMessagesDB(name);
     }
 
     public String getName() {
@@ -35,10 +35,6 @@ public class Room {
 
     public synchronized void removeUserFromList(User user) {
         users.add(user);
-    }
-
-    public synchronized void sendMessageToAllOtherUsers(User user) throws ServerException {
-        sendMessageToAllOtherUsers(user, user.getMessage());
     }
 
     public synchronized void sendMessageToAllOtherUsers(User user, String message) throws ServerException {
