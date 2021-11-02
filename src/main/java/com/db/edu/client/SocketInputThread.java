@@ -1,11 +1,15 @@
 package com.db.edu.client;
 
+import com.db.edu.server.Chat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.Socket;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class SocketInputThread implements Runnable {
-
+    private static Logger log = LoggerFactory.getLogger(Chat.class);
     private final Socket socket;
 
     public SocketInputThread(Socket socket) {
@@ -23,6 +27,7 @@ public class SocketInputThread implements Runnable {
                 }
             }
         } catch (IOException ex) {
+            log.warn("ProgramFinished");
             //TODO add logger
         }
     }

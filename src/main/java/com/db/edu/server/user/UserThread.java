@@ -38,6 +38,9 @@ public class UserThread implements Runnable {
         if (msg.isKey("/hist")){
             room.sendMessageHistoryToUser(user);
         }
+        if (msg.isKey("/chid")){
+            room.sendMessageHistoryToUser(user);
+        }
 
     }
 }

@@ -9,7 +9,7 @@ import static java.lang.System.lineSeparator;
 
 public class Message {
     private String time;
-    private String userName = "Default name";
+    private String userName = "";
     private String key;
     private String data;
 
