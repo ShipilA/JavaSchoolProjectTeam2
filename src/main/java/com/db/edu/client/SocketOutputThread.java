@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 public class SocketOutputThread implements Runnable {
 
     private Socket s = null;
-    private Scanner in = null;
+    private final Scanner in = null;
     private PrintWriter out = null;
     private boolean exit = true;
     private String inMessage = null;
