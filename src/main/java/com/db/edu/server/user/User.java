@@ -5,6 +5,7 @@ import com.db.edu.server.rooms.Room;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -13,11 +14,11 @@ public class User {
     private String name = "Default name";
     private final Socket socket;
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String newName){
+    public void setName(String newName) {
         name = newName;
     }
 
@@ -54,5 +55,16 @@ public class User {
         UserThread userThread = new UserThread(this, room);
         Thread thread = new Thread(userThread);
         thread.start();
+    }
+
+    public void receiveMessage(String message) throws ServerException {
+        try {
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
+            out.println(message);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            throw new ServerException("Exception in reading from user's socket", e);
+        }
     }
 }

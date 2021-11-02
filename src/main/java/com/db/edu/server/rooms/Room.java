@@ -1,11 +1,10 @@
 package com.db.edu.server.rooms;
 
-import com.db.edu.server.message.Message;
-import com.db.edu.server.user.User;
 import com.db.edu.server.database.RoomMessagesDB;
 import com.db.edu.server.exception.ServerException;
+import com.db.edu.server.message.Message;
+import com.db.edu.server.user.User;
 
-import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,23 +46,17 @@ public class Room {
     public synchronized void sendMessageToAllOtherUsers(User user, String message) throws ServerException {
         for (User receiver : users) {
             if (!user.equals(receiver)) {
-                PrintWriter out = new PrintWriter(receiver.getOutputStream());
-                out.println(message);
-                out.flush();
+                receiver.receiveMessage(message);
             }
         }
     }
 
     public synchronized void sendMessageHistoryToUser(User user) throws ServerException {
-        PrintWriter out = new PrintWriter(user.getOutputStream());
-        out.println(messageHistory());
-        out.flush();
+        user.receiveMessage(messageHistory());
     }
 
-    public synchronized void sendMessageToUser(User user, String msg) throws ServerException {
-        PrintWriter out = new PrintWriter(user.getOutputStream());
-        out.println(msg);
-        out.flush();
+    public synchronized void sendMessageToUser(User user, String message) throws ServerException {
+        user.receiveMessage(message);
     }
 
 }
