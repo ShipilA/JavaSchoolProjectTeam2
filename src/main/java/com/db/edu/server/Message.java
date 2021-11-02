@@ -8,7 +8,7 @@ import static java.lang.System.lineSeparator;
 
 public class Message {
     private String time;
-    private String userName;
+    private String userName = "Default name";
     private String key;
     private String data;
 
