@@ -12,13 +12,11 @@ public class UserThread implements Runnable {
         this.room = room;
     }
 
-
-
     @Override
     public void run() {
         try {
             room.addUserToList(user);
-            while (true){
+            while (!Thread.interrupted()) {
                 Message msg = new Message(user.getMessage());
 
                 room.saveMessage(msg);

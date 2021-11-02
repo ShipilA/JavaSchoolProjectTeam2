@@ -1,5 +1,5 @@
 package com.db.edu.client;
-import java.io.PrintWriter;
+
 import java.net.Socket;
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,29 +8,24 @@ import java.util.logging.Logger;
 
 public class SocketInputThread implements Runnable {
 
-    private Socket s = null;
-    private Scanner in = null;
-    private PrintWriter out = null;
-    private boolean exit = true;
-    private String inMessage = null;
-    private String outMessage = null;
+    private final Socket socket;
 
-    public SocketInputThread(Socket s) {
-        this.s = s;
+    public SocketInputThread(Socket socket) {
+        this.socket = socket;
     }
 
     @Override
     public void run() {
         try {
-            in = new Scanner(s.getInputStream());
-            while(true){
-                if(in.hasNext()){
-                    inMessage = in.nextLine();
-                    System.out.println(inMessage);
+            Scanner scanner = new Scanner(socket.getInputStream());
+            while (!Thread.interrupted()) {
+                if (scanner.hasNext()) {
+                    String message = scanner.nextLine();
+                    System.out.println(message);
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(SocketInputThread.class.getName()).log(Level.SEVERE, null, ex);
+            //TODO add logger
         }
     }
 }

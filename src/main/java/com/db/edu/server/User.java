@@ -25,8 +25,7 @@ public class User {
     public String getMessage() throws ServerException {
         try {
             Scanner scanner = new Scanner(socket.getInputStream());
-            String message = scanner.nextLine();
-            return message;
+            return scanner.nextLine();
         } catch (IOException e) {
             throw new ServerException("Exception in reading from user's socket", e);
         }

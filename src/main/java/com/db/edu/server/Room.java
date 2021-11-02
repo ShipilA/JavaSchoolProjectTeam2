@@ -15,9 +15,9 @@ public class Room {
 
     private RoomMessagesDB roomMessages;
 
-    Room (String name){
+    Room(String name) {
         this.name = name;
-        roomMessages = new RoomMessagesDB(new File(name+".csv"));
+        roomMessages = new RoomMessagesDB(new File(name + ".csv"));
     }
 
     public synchronized void saveMessage(Message msg){
@@ -32,6 +32,7 @@ public class Room {
         users.add(user);
     }
 
+    //TODO method does not work correct. Data is send to all users
     public synchronized void sendMessageToAllOtherUsers(Message msg) throws ServerException {
         for (User receiver : users) {
             PrintWriter out = new PrintWriter(receiver.getOutputStream());

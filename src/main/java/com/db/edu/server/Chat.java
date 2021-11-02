@@ -7,13 +7,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Chat{
-    static final Logger logger = LoggerFactory.getLogger(ServerImpl.class);
+public class Chat {
 
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(9222);
-            while(true){
+            while (true) {
                 Socket socket = serverSocket.accept();
                 UserThread userThread = new UserThread(
                         new User(socket),
@@ -22,8 +21,7 @@ public class Chat{
                 thread.start();
             }
         } catch (IOException e) {
-            //FIXME log to file
-           logger.error("Exception", e);
+            //TODO add logger
         }
     }
 }
