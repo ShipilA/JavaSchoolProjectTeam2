@@ -11,7 +11,7 @@ public class MessageFacade {
         if (items.length > 1) {
             if (items[0].contains("/snd")) {
                 if (items[1].length() > MESSAGE_MAX_LENGTH) {
-                    //TODO handle this case
+                    throw new ServerException("User message length");
                 }
                 return new SendMessage(userName, items[1]);
             }

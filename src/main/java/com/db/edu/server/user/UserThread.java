@@ -18,6 +18,7 @@ public class UserThread implements Runnable {
     public void run() {
         try {
             room.addUserToList(user);
+
             while (!Thread.interrupted()) {
                 processMessages(new Message(user.getMessage()));
             }
