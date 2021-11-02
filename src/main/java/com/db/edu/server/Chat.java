@@ -8,7 +8,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Chat{
-    static final Logger logger = LoggerFactory.getLogger(ServerImpl.class);
 
     public static void main(String[] args) {
         try {
@@ -22,8 +21,7 @@ public class Chat{
                 thread.start();
             }
         } catch (IOException e) {
-            //FIXME log to file
-           logger.error("Exception", e);
+            //TODO add logger
         }
     }
 }
