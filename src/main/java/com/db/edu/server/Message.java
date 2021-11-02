@@ -12,15 +12,6 @@ public class Message {
     private String key;
     private String data;
 
-    Message() {}
-
-    public Message(String name, String messageText) {
-        time = timeStamp();
-        userName = name;
-        data = messageText;
-
-    }
-
     public Message(String incommingMessage) {
         time = timeStamp();
         fromIncommingMessage(incommingMessage);
