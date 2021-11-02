@@ -12,13 +12,7 @@ public class Message {
     private String key;
     private String data;
 
-    Message() {}
-
-    public Message(String name, String messageText) {
-        time = timeStamp();
-        userName = name;
-        data = messageText;
-
+    public Message() {
     }
 
     public Message(String incommingMessage) {
@@ -42,15 +36,16 @@ public class Message {
         return String.format("%s" + separator + "%s" + separator + "%s", time, userName, data);
     }
 
-    public void fromCSVLine(String data) {
+    public Message fromCSVLine(String data) {
         String[] items = data.split(";");
         time = items[0];
         userName = items[1];
         this.data = items[2];
+        return this;
     }
 
     public void fromIncommingMessage(String message) {
-        String[] items = message.split(" ",1);
+        String[] items = message.split(" ", 1);
         userName = items[0];
         data = items[1];
     }

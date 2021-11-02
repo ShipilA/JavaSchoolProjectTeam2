@@ -37,7 +37,7 @@ public class RoomMessagesDB implements DataBase {
             if (!tableFile.exists()) {
                 tableFile.createNewFile();
             }
-            Files.write(tableFile.toPath(), data.getBytes(StandardCharsets.UTF_8), WRITE, APPEND);
+            Files.write(tableFile.toPath(), (data + lineSeparator()).getBytes(StandardCharsets.UTF_8), WRITE, APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class RoomMessagesDB implements DataBase {
         StringBuilder out = new StringBuilder();
         try {
             Files.lines(tableFile.toPath()) //readAllLines
-                    .forEach(s -> out.append(new Message(s)).append(lineSeparator()));
+                    .forEach(s -> out.append(new Message().fromCSVLine(s)).append(lineSeparator()));
         } catch (IOException e) {
             e.printStackTrace();
         }
