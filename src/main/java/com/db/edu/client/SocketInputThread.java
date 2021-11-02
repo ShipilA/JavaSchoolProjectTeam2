@@ -1,5 +1,9 @@
 package com.db.edu.client;
 
+import com.db.edu.server.Chat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.Socket;
 import java.io.IOException;
 import java.util.Scanner;
@@ -7,6 +11,7 @@ import java.util.Scanner;
 public class SocketInputThread implements Runnable {
 
     private final Socket socket;
+    static Logger log = LoggerFactory.getLogger(SocketInputThread.class);
 
     public SocketInputThread(Socket socket) {
         this.socket = socket;
@@ -24,6 +29,7 @@ public class SocketInputThread implements Runnable {
             }
         } catch (IOException ex) {
             //TODO add logger
+            log.error("Failed to process connection: {}", ex);
         }
     }
 }
