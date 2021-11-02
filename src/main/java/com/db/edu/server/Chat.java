@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Chat{
+public class Chat {
 
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(9222);
-            while(true){
+            while (true) {
                 Socket socket = serverSocket.accept();
                 UserThread userThread = new UserThread(
                         new User(socket),

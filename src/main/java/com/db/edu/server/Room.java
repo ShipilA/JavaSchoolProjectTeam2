@@ -15,9 +15,9 @@ public class Room {
 
     public RoomMessagesDB roomMessages;
 
-    Room (String name){
+    Room(String name) {
         this.name = name;
-        roomMessages = new RoomMessagesDB(new File(name+".csv"));
+        roomMessages = new RoomMessagesDB(new File(name + ".csv"));
     }
 
     public synchronized void addUserToList(User user) {
