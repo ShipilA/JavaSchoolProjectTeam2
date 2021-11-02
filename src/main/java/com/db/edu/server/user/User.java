@@ -6,6 +6,7 @@ import com.db.edu.server.rooms.Room;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class User {
@@ -18,7 +19,7 @@ public class User {
     public OutputStream getOutputStream() throws ServerException {
         try {
             return socket.getOutputStream();
-        } catch (IOException e) {
+        } catch (IOException | NoSuchElementException e) {
             throw new ServerException("Exception in reading from user's socket", e);
         }
     }
@@ -27,7 +28,7 @@ public class User {
         try {
             Scanner scanner = new Scanner(socket.getInputStream());
             return scanner.nextLine();
-        } catch (IOException e) {
+        } catch (IOException | NoSuchElementException e) {
             throw new ServerException("Exception in reading from user's socket", e);
         }
     }
@@ -35,7 +36,7 @@ public class User {
     public void close() throws ServerException {
         try {
             socket.close();
-        } catch (IOException e) {
+        } catch (IOException | NoSuchElementException e) {
             throw new ServerException("Exception in closing user's socket", e);
         }
     }

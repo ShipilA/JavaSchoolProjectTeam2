@@ -2,7 +2,6 @@ package com.db.edu.server;
 
 import com.db.edu.server.rooms.RoomContainer;
 import com.db.edu.server.user.User;
-import com.db.edu.server.rooms.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
