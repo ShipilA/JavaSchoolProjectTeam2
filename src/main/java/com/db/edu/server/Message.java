@@ -11,7 +11,7 @@ public class Message {
     private String userName;
     private String text;
 
-    Message(){}
+
     public Message(String name, String messageText) {
         time = timeStamp();
         userName = name;
