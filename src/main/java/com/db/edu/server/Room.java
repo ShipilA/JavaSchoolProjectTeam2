@@ -5,7 +5,7 @@ import com.db.edu.server.exception.ServerException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class UserList {
+public class Room {
 
     private ArrayList<User> users = new ArrayList<User>();
 
@@ -25,6 +25,5 @@ public class UserList {
                 out.flush();
             }
         }
-
     }
 }
