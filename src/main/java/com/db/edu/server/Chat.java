@@ -1,27 +1,26 @@
 package com.db.edu.server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.db.edu.server.rooms.Room;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Chat{
-    static final Logger logger = LoggerFactory.getLogger(ServerImpl.class);
+public class Chat {
 
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(9222);
-            while(true){
+            while (true) {
                 Socket socket = serverSocket.accept();
-                UserThread userThread = new UserThread(new User(socket), new Room());
+                UserThread userThread = new UserThread(
+                        new User(socket),
+                        new Room("default"));
                 Thread thread = new Thread(userThread);
                 thread.start();
             }
         } catch (IOException e) {
-            //FIXME log to file
-           logger.error("Exception", e);
+            //TODO add logger
         }
     }
 }

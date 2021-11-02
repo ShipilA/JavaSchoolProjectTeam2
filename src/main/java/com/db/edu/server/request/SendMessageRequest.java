@@ -26,6 +26,5 @@ public class SendMessageRequest implements Request {
         if (message.substring(SEND_PREFIX.length()).length() > MAX_LENGTH) {
             throw new ServerException("Too long message. Maximum length is " + MAX_LENGTH + " symbols");
         }
-
     }
 }

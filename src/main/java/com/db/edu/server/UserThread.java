@@ -1,6 +1,7 @@
 package com.db.edu.server;
 
 import com.db.edu.server.exception.ServerException;
+import com.db.edu.server.rooms.Room;
 
 public class UserThread implements Runnable {
 
@@ -16,11 +17,17 @@ public class UserThread implements Runnable {
     public void run() {
         try {
             room.addUserToList(user);
-            room.sendMessageToAllOtherUsers(user);
-            room.removeUserFromList(user);
-            user.close();
+            while (!Thread.interrupted()) {
+                Message message = new Message(user.getMessage());
+                room.saveMessage(message);
+                room.sendMessageToAllOtherUsers(user, message.toString());
+            }
+
         } catch (ServerException ex) {
             //TODO add logger
+        } finally {
+            room.removeUserFromList(user);
+//            user.close();
         }
     }
 }
