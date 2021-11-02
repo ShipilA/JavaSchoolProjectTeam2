@@ -7,37 +7,24 @@ import java.util.logging.Logger;
 
 public class SocketOutputThread implements Runnable {
 
-    private Socket s = null;
-    private Scanner in = null;
-    private PrintWriter out = null;
-    private boolean exit = true;
-    private String inMessage = null;
-    private String outMessage = null;
-    private String clientName = "";
+    private final Socket socket;
 
-    public SocketOutputThread(Socket s) {
-        this.s = s;
+    public SocketOutputThread(Socket socket) {
+        this.socket = socket;
     }
 
     @Override
     public void run() {
         try {
-
-            System.out.println();
-
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
             Scanner in = new Scanner(System.in);
-            System.out.print("Please enter your name: ");
-            clientName = in.nextLine();
-
-            out = new PrintWriter(s.getOutputStream());
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
             while (true) {
-                outMessage = buffer.readLine();
-                out.println(clientName+"\t"+outMessage);
+                String outMessage = in.nextLine();
+                out.println(outMessage);
                 out.flush();
             }
         } catch (IOException ex) {
-            Logger.getLogger(SocketOutputThread.class.getName()).log(Level.SEVERE, null, ex);
+            //TODO add logger
         }
     }
 }
