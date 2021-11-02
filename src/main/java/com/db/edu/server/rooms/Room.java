@@ -7,17 +7,22 @@ import com.db.edu.server.exception.ServerException;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Room {
 
     private final String name;
-    private final ArrayList<User> users = new ArrayList<>();
-    private RoomMessagesDB roomMessages;
+    private final List<User> users = new LinkedList<>();
+    private final RoomMessagesDB roomMessages;
 
     public Room(String name) {
         this.name = name;
         roomMessages = new RoomMessagesDB(new File(name + ".csv"));
+    }
+
+    public String getName() {
+        return name;
     }
 
     public synchronized void saveMessage(Message msg){
