@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Chat {
-    static Logger log = LoggerFactory.getLogger(Chat.class);
+    private static final Logger log = LoggerFactory.getLogger(Chat.class);
 
     public static void main(String[] args) {
         try {

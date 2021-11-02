@@ -1,6 +1,5 @@
 package com.db.edu.client;
 
-import com.db.edu.server.Chat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
