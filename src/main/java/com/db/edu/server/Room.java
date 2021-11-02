@@ -13,11 +13,15 @@ public class Room {
 
     private final ArrayList<User> users = new ArrayList<>();
 
-    public RoomMessagesDB roomMessages;
+    private RoomMessagesDB roomMessages;
 
     Room(String name) {
         this.name = name;
         roomMessages = new RoomMessagesDB(new File(name + ".csv"));
+    }
+
+    public synchronized void saveMessage(Message msg){
+        roomMessages.saveMessage(msg);
     }
 
     public synchronized void addUserToList(User user) {

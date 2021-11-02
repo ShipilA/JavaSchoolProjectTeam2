@@ -18,7 +18,9 @@ public class UserThread implements Runnable {
             room.addUserToList(user);
             while (!Thread.interrupted()) {
                 Message msg = new Message(user.getMessage());
-                room.roomMessages.saveMessage(msg);
+
+                room.saveMessage(msg);
+
                 room.sendMessageToAllOtherUsers(msg);
             }
 
