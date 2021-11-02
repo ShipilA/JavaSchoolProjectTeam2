@@ -1,7 +1,7 @@
 package com.db.edu.server.user;
 
 import com.db.edu.server.MessageFacade;
-import com.db.edu.server.MessageFacadeError;
+import com.db.edu.server.MessageFacadeException;
 import com.db.edu.server.message.*;
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.rooms.Room;
@@ -26,7 +26,7 @@ public class UserThread implements Runnable {
             while (!Thread.interrupted()) {
                 try {
                     processMessages(messageFacade.processIncomingMessage(user.getMessage(), user.getName()));
-                } catch (MessageFacadeError ex){
+                } catch (MessageFacadeException ex){
                     if (Objects.equals(ex.getMessage(),"User message length > 150")) {
                         System.out.println(ex.getMessage());
                         try {
