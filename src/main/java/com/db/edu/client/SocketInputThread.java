@@ -1,6 +1,5 @@
 package com.db.edu.client;
 
-import com.db.edu.server.Chat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,9 +8,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class SocketInputThread implements Runnable {
-    private static Logger log = LoggerFactory.getLogger(Chat.class);
+    private static final Logger log = LoggerFactory.getLogger(SocketInputThread.class);
     private final Socket socket;
-    static Logger log = LoggerFactory.getLogger(SocketInputThread.class);
 
     public SocketInputThread(Socket socket) {
         this.socket = socket;

@@ -10,15 +10,17 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Chat {
-    static Logger log = LoggerFactory.getLogger(Chat.class);
+    private static final Logger log = LoggerFactory.getLogger(Chat.class);
 
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(9222);
             RoomContainer roomContainer = new RoomContainer();
+            log.info("Server successfully started");
             while (true) {
                 Socket socket = serverSocket.accept();
                 User user = new User(socket);
+                log.info("New user connected");
                 //TODO refactor room choosing
                 user.chatInRoom(roomContainer.getRoomWithName("Default room"));
             }
