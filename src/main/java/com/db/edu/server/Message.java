@@ -44,9 +44,13 @@ public class Message {
     }
 
     public void fromIncomingMessage(String message) {
-        String[] items = message.split(" ", 1);
-        userName = items[0];
-        data = items[1];
+        String[] items = message.split(" ", 2);
+        if (items.length>1){
+            key = items[0];
+            data = items[1];
+        } else if (items.length>0){
+            data = items[0];
+        }
     }
 
     private String timeStamp() {
