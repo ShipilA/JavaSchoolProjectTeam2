@@ -1,6 +1,7 @@
 package com.db.edu.server;
 
 import com.db.edu.server.exception.ServerException;
+import com.db.edu.server.rooms.Room;
 
 public class UserThread implements Runnable {
 
@@ -17,11 +18,9 @@ public class UserThread implements Runnable {
         try {
             room.addUserToList(user);
             while (!Thread.interrupted()) {
-                Message msg = new Message(user.getMessage());
-
-                room.saveMessage(msg);
-
-                room.sendMessageToAllOtherUsers(msg);
+                Message message = new Message(user.getMessage());
+                room.saveMessage(message);
+                room.sendMessageToAllOtherUsers(user, message.toString());
             }
 
         } catch (ServerException ex) {
