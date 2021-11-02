@@ -2,12 +2,16 @@ package com.db.edu.server;
 
 import com.db.edu.server.rooms.RoomContainer;
 import com.db.edu.server.user.User;
+import com.db.edu.server.rooms.Room;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Chat {
+    static Logger log = LoggerFactory.getLogger(Chat.class);
 
     public static void main(String[] args) {
         try {
@@ -20,7 +24,7 @@ public class Chat {
                 user.chatInRoom(roomContainer.getRoomWithName("Default room"));
             }
         } catch (IOException e) {
-            //TODO add logger
+            log.error("Failed to run server: {}", e);
         }
     }
 }
