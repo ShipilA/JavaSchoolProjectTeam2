@@ -28,6 +28,7 @@ public class Room {
         users.add(user);
     }
 
+    //TODO method does not work correct. Data is send to all users
     public synchronized void sendMessageToAllOtherUsers(Message msg) throws ServerException {
         for (User receiver : users) {
             PrintWriter out = new PrintWriter(receiver.getOutputStream());
