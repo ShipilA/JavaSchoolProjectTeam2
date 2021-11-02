@@ -36,7 +36,7 @@ public class UserThread implements Runnable {
             room.sendMessageToAllOtherUsers(user, msg.toString());
         }
         if (msg.isKey("/hist")){
-            room.sendMessageHistoryToUsers(user);
+            room.sendMessageHistoryToUser(user);
         }
 
     }
