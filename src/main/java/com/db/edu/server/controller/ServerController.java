@@ -14,7 +14,7 @@ public class ServerController {
     DataBase roomMessagesDataBase;
 
     public ServerController() {
-        //this.roomMessagesDataBase = new RoomMessagesDB(new File("data.csv"));
+        this.roomMessagesDataBase = new RoomMessagesDB("data.csv");
     }
 
     public void getRequest(String message) throws ServerException {

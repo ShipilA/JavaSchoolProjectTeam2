@@ -1,5 +1,7 @@
 package com.db.edu.server;
 
+import com.db.edu.server.rooms.RoomContainer;
+import com.db.edu.server.user.User;
 import com.db.edu.server.rooms.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +16,12 @@ public class Chat {
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(9222);
+            RoomContainer roomContainer = new RoomContainer();
             while (true) {
                 Socket socket = serverSocket.accept();
-                UserThread userThread = new UserThread(
-                        new User(socket),
-                        new Room("default"));
-                Thread thread = new Thread(userThread);
-                thread.start();
+                User user = new User(socket);
+                //TODO refactor room choosing
+                user.chatInRoom(roomContainer.getRoomWithName("Default room"));
             }
         } catch (IOException e) {
             log.error("Failed to run server: {}", e);

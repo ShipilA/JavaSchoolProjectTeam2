@@ -8,22 +8,15 @@ import static java.lang.System.lineSeparator;
 
 public class Message {
     private String time;
-    private String userName;
+    private String userName = "Default name";
     private String key;
     private String data;
 
-    Message() {}
+    public Message() {}
 
-    public Message(String name, String messageText) {
+    public Message(String incomingMessage) {
         time = timeStamp();
-        userName = name;
-        data = messageText;
-
-    }
-
-    public Message(String incommingMessage) {
-        time = timeStamp();
-        fromIncommingMessage(incommingMessage);
+        fromIncomingMessage(incomingMessage);
     }
 
     public String getData() {
@@ -42,17 +35,22 @@ public class Message {
         return String.format("%s" + separator + "%s" + separator + "%s", time, userName, data);
     }
 
-    public void fromCSVLine(String data) {
+    public Message fromCSVLine(String data) {
         String[] items = data.split(";");
         time = items[0];
         userName = items[1];
         this.data = items[2];
+        return this;
     }
 
-    public void fromIncommingMessage(String message) {
-        String[] items = message.split(" ",1);
-        userName = items[0];
-        data = items[1];
+    public void fromIncomingMessage(String message) {
+        String[] items = message.split(" ", 2);
+        if (items.length>1){
+            key = items[0];
+            data = items[1];
+        } else if (items.length>0){
+            data = items[0];
+        }
     }
 
     private String timeStamp() {
