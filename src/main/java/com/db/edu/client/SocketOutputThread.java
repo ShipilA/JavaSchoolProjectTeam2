@@ -1,10 +1,12 @@
 package com.db.edu.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SocketOutputThread implements Runnable {
 

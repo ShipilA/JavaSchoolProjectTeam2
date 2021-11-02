@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.io.IOException;
 
 public class Client {
-    static Logger log = LoggerFactory.getLogger(Chat.class);
+    private static final Logger log = LoggerFactory.getLogger(Client.class);
     public static void main(String[] args) {
 
         try {

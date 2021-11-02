@@ -1,14 +1,11 @@
 package com.db.edu.server.database;
 
-import com.db.edu.server.Message;
+import com.db.edu.server.message.Message;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 
 import static java.lang.System.lineSeparator;
 //import static java.nio.file.Files.writeString;

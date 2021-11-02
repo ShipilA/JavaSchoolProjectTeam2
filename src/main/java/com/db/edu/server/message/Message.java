@@ -1,4 +1,4 @@
-package com.db.edu.server;
+package com.db.edu.server.message;
 
 
 import java.text.SimpleDateFormat;
@@ -8,17 +8,25 @@ import java.util.Objects;
 import static java.lang.System.lineSeparator;
 
 public class Message {
+    private static final int MSGMAXLEN = 150;
     private String time;
-    private String userName = "Default name";
-    private String key;
+    private String userName = "";
     private String data;
+    protected String key;
 
-    public Message() {}
+    public Message(String uName, String uData) {
+        time = timeStamp();
+        userName = uName;
+        data = uData;
+    }
 
     public Message(String incomingMessage) {
         time = timeStamp();
         fromIncomingMessage(incomingMessage);
     }
+
+    public Message() {}
+
 
     public String getData() {
         return data;
@@ -28,8 +36,8 @@ public class Message {
         return key;
     }
 
-    public boolean isKey(String k){
-        return Objects.equals(key,k);
+    public boolean isKey(String k) {
+        return Objects.equals(key, k);
     }
 
     public String toString() {
@@ -50,11 +58,14 @@ public class Message {
 
     public void fromIncomingMessage(String message) {
         String[] items = message.split(" ", 2);
-        if (items.length>1){
+        if (items.length > 1) {
             key = items[0];
             data = items[1];
-        } else if (items.length>0){
-            if(items[0].contains("/")){
+            if (data.length() > MSGMAXLEN) {
+                //TODO handle this case
+            }
+        } else if (items.length > 0) {
+            if (items[0].contains("/")) {
                 key = items[0];
             } else {
                 data = items[0];

@@ -8,17 +8,20 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import org.slf4j.MDC;
 
 public class Chat {
-    static Logger log = LoggerFactory.getLogger(Chat.class);
+    final static Logger log = LoggerFactory.getLogger(Chat.class);
 
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(9222);
             RoomContainer roomContainer = new RoomContainer();
+            log.info("Server successfully started");
             while (true) {
                 Socket socket = serverSocket.accept();
                 User user = new User(socket);
+                log.info("New user connected");
                 //TODO refactor room choosing
                 user.chatInRoom(roomContainer.getRoomWithName("Default room"));
             }

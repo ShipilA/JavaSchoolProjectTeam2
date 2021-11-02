@@ -1,6 +1,6 @@
 package com.db.edu.server.rooms;
 
-import com.db.edu.server.Message;
+import com.db.edu.server.message.Message;
 import com.db.edu.server.user.User;
 import com.db.edu.server.database.RoomMessagesDB;
 import com.db.edu.server.exception.ServerException;
@@ -57,6 +57,12 @@ public class Room {
     public synchronized void sendMessageHistoryToUser(User user) throws ServerException {
         PrintWriter out = new PrintWriter(user.getOutputStream());
         out.println(messageHistory());
+        out.flush();
+    }
+
+    public synchronized void sendMessageToUser(User user, String msg) throws ServerException {
+        PrintWriter out = new PrintWriter(user.getOutputStream());
+        out.println(msg);
         out.flush();
     }
 
