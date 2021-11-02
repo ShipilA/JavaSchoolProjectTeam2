@@ -43,7 +43,7 @@ public class Room {
     public synchronized void sendMessageToAllOtherUsers(User user, String message) throws ServerException {
         for (User receiver : users) {
             if (!user.equals(receiver)) {
-                PrintWriter out = new PrintWriter(user.getOutputStream());
+                PrintWriter out = new PrintWriter(receiver.getOutputStream());
                 out.println(message);
                 out.flush();
             }
