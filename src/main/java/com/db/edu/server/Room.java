@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Room {
 
-    private ArrayList<User> users = new ArrayList<User>();
+    private final ArrayList<User> users = new ArrayList<>();
 
     public synchronized void addUserToList(User user) {
         users.add(user);
