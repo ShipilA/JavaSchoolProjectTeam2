@@ -21,7 +21,7 @@ public class Message {
 
     public Message(String incommingMessage) {
         time = timeStamp();
-        fromIncommingMessage(incommingMessage);
+        fromIncomingMessage(incommingMessage);
     }
 
     public String getData() {
@@ -47,7 +47,7 @@ public class Message {
         this.data = items[2];
     }
 
-    public void fromIncommingMessage(String message) {
+    public void fromIncomingMessage(String message) {
         String[] items = message.split(" ",1);
         userName = items[0];
         data = items[1];
