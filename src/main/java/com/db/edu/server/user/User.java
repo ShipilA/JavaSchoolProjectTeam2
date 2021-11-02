@@ -1,6 +1,7 @@
-package com.db.edu.server;
+package com.db.edu.server.user;
 
 import com.db.edu.server.exception.ServerException;
+import com.db.edu.server.rooms.Room;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -37,5 +38,11 @@ public class User {
         } catch (IOException e) {
             throw new ServerException("Exception in closing user's socket", e);
         }
+    }
+
+    public void chatInRoom(Room room) {
+        UserThread userThread = new UserThread(this, room);
+        Thread thread = new Thread(userThread);
+        thread.start();
     }
 }
