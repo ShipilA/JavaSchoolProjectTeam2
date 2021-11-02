@@ -12,6 +12,8 @@ public class UserThread implements Runnable {
         this.room = room;
     }
 
+
+
     @Override
     public void run() {
         try {
@@ -19,7 +21,7 @@ public class UserThread implements Runnable {
             while (true){
                 Message msg = new Message(user.getMessage());
 
-                room.roomMessages.saveMessage(msg);
+                room.saveMessage(msg);
 
                 room.sendMessageToAllOtherUsers(msg);
             }
