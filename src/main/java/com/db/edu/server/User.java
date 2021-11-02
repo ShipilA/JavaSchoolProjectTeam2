@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class User {
     private final Socket socket;
 
-
     public User(Socket socket) {
         this.socket = socket;
     }
