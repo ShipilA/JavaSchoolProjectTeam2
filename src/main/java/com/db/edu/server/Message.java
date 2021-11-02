@@ -14,9 +14,9 @@ public class Message {
 
     public Message() {}
 
-    public Message(String incommingMessage) {
+    public Message(String incomingMessage) {
         time = timeStamp();
-        fromIncommingMessage(incommingMessage);
+        fromIncomingMessage(incomingMessage);
     }
 
     public String getData() {
@@ -43,7 +43,7 @@ public class Message {
         return this;
     }
 
-    public void fromIncommingMessage(String message) {
+    public void fromIncomingMessage(String message) {
         String[] items = message.split(" ", 1);
         userName = items[0];
         data = items[1];
