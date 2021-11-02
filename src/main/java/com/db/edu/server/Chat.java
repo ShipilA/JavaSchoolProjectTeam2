@@ -8,9 +8,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import org.slf4j.MDC;
 
 public class Chat {
-    private static final Logger log = LoggerFactory.getLogger(Chat.class);
+    final static Logger log = LoggerFactory.getLogger(Chat.class);
 
     public static void main(String[] args) {
         try {
