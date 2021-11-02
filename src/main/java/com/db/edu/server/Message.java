@@ -54,9 +54,11 @@ public class Message {
             key = items[0];
             data = items[1];
         } else if (items.length>0){
-            key = "";
-            data = items[0];
-
+            if(items[0].contains("/")){
+                key = items[0];
+            } else {
+                data = items[0];
+            }
         }
     }
 

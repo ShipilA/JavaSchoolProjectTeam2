@@ -54,7 +54,7 @@ public class Room {
         }
     }
 
-    public synchronized void sendMessageHistoryToUsers(User user) throws ServerException {
+    public synchronized void sendMessageHistoryToUser(User user) throws ServerException {
         PrintWriter out = new PrintWriter(user.getOutputStream());
         out.println(messageHistory());
         out.flush();
