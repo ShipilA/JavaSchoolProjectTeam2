@@ -19,7 +19,12 @@ public class MessageFacadeTest {
         String itemsTest = "/snd This is a test message!";
         MessageFacade messageFacade = new MessageFacade();
 
-        Message result = messageFacade.processIncomingMessage(itemsTest, userTest);
+        Message result = null;
+        try {
+            result = messageFacade.processIncomingMessage(itemsTest, userTest);
+        } catch (MessageFacadeException e) {
+            e.printStackTrace();
+        }
 
         Assertions.assertEquals(SendMessage.class, result.getClass());
     }
@@ -30,7 +35,12 @@ public class MessageFacadeTest {
         String itemsTest = "/chid This is a test message!";
         MessageFacade messageFacade = new MessageFacade();
 
-        Message result = messageFacade.processIncomingMessage(itemsTest, userTest);
+        Message result = null;
+        try {
+            result = messageFacade.processIncomingMessage(itemsTest, userTest);
+        } catch (MessageFacadeException e) {
+            e.printStackTrace();
+        }
 
         Assertions.assertEquals(SetUserNameMessage.class, result.getClass());
     }
@@ -41,7 +51,12 @@ public class MessageFacadeTest {
         String itemsTest = "/hist";
         MessageFacade messageFacade = new MessageFacade();
 
-        Message result = messageFacade.processIncomingMessage(itemsTest, userTest);
+        Message result = null;
+        try {
+            result = messageFacade.processIncomingMessage(itemsTest, userTest);
+        } catch (MessageFacadeException e) {
+            e.printStackTrace();
+        }
 
         Assertions.assertEquals(HistoryMessage.class, result.getClass());
     }
