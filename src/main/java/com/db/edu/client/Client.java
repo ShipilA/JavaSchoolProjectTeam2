@@ -1,9 +1,6 @@
 package com.db.edu.client;
 import java.net.Socket;
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Client {
     public static void main(String[] args) {

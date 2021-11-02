@@ -11,7 +11,6 @@ import java.io.File;
 
 public class ServerController {
     Request request;
-
     DataBase roomMessagesDataBase;
 
     public ServerController() {
@@ -22,6 +21,7 @@ public class ServerController {
         RequestFactory requestFactory = new RequestFactory();
         request = requestFactory.getRequest(message);
         request.handleResponse();
+
         Message msg = new Message("name","text");
         roomMessagesDataBase.saveMessage(msg);
         sendClientsNewMessage(msg);
