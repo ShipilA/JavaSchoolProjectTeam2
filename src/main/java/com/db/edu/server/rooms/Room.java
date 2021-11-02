@@ -1,5 +1,7 @@
-package com.db.edu.server;
+package com.db.edu.server.rooms;
 
+import com.db.edu.server.Message;
+import com.db.edu.server.User;
 import com.db.edu.server.database.RoomMessagesDB;
 import com.db.edu.server.exception.ServerException;
 
@@ -9,13 +11,11 @@ import java.util.ArrayList;
 
 public class Room {
 
-    private String name = "";
-
+    private final String name;
     private final ArrayList<User> users = new ArrayList<>();
-
     private RoomMessagesDB roomMessages;
 
-    Room(String name) {
+    public Room(String name) {
         this.name = name;
         roomMessages = new RoomMessagesDB(new File(name + ".csv"));
     }
@@ -32,20 +32,15 @@ public class Room {
         users.add(user);
     }
 
-    //TODO method does not work correct. Data is send to all users
-    public synchronized void sendMessageToAllOtherUsers(Message msg) throws ServerException {
-        for (User receiver : users) {
-            PrintWriter out = new PrintWriter(receiver.getOutputStream());
-            out.println(msg.toString());
-            out.flush();
-        }
+    public synchronized void sendMessageToAllOtherUsers(User user) throws ServerException {
+        sendMessageToAllOtherUsers(user, user.getMessage());
     }
 
-    public synchronized void sendMessageToAllOtherUsers(User user) throws ServerException {
+    public synchronized void sendMessageToAllOtherUsers(User user, String message) throws ServerException {
         for (User receiver : users) {
             if (!user.equals(receiver)) {
                 PrintWriter out = new PrintWriter(user.getOutputStream());
-                out.println(user.getMessage());
+                out.println(message);
                 out.flush();
             }
         }
