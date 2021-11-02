@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class SocketInputThread implements Runnable {
     private static Logger log = LoggerFactory.getLogger(Chat.class);
     private final Socket socket;
+    static Logger log = LoggerFactory.getLogger(SocketInputThread.class);
 
     public SocketInputThread(Socket socket) {
         this.socket = socket;
@@ -29,6 +30,7 @@ public class SocketInputThread implements Runnable {
         } catch (IOException ex) {
             log.warn("ProgramFinished");
             //TODO add logger
+            log.error("Failed to process connection: {}", ex);
         }
     }
 }

@@ -12,8 +12,10 @@ public class Message {
     private String userName = "";
     private String key;
     private String data;
+    private static int messageMaxLength = 150;
 
-    public Message() {}
+    public Message() {
+    }
 
     public Message(String incomingMessage) {
         time = timeStamp();
@@ -28,8 +30,8 @@ public class Message {
         return key;
     }
 
-    public boolean isKey(String k){
-        return Objects.equals(key,k);
+    public boolean isKey(String k) {
+        return Objects.equals(key, k);
     }
 
     public String toString() {
@@ -50,11 +52,14 @@ public class Message {
 
     public void fromIncomingMessage(String message) {
         String[] items = message.split(" ", 2);
-        if (items.length>1){
+        if (items.length > 1) {
             key = items[0];
             data = items[1];
-        } else if (items.length>0){
-            if(items[0].contains("/")){
+            if (data.length() > 150) {
+                //TODO handle this case
+            }
+        } else if (items.length > 0) {
+            if (items[0].contains("/")) {
                 key = items[0];
             } else {
                 data = items[0];
