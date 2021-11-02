@@ -20,7 +20,7 @@ public class Client {
         } catch (IOException ex) {
             log.error("Failed to process connection: {}", ex);
         }
-        log.warn("ProgramFinished");
+        log.warn("Program Finished");
     }
 }
 
