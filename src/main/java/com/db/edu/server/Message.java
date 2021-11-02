@@ -8,11 +8,11 @@ import java.util.Objects;
 import static java.lang.System.lineSeparator;
 
 public class Message {
+    private static final int MSGMAXLEN = 150;
     private String time;
     private String userName = "";
     private String key;
     private String data;
-    private static int messageMaxLength = 150;
 
     public Message() {
     }
@@ -55,7 +55,7 @@ public class Message {
         if (items.length > 1) {
             key = items[0];
             data = items[1];
-            if (data.length() > 150) {
+            if (data.length() > MSGMAXLEN) {
                 //TODO handle this case
             }
         } else if (items.length > 0) {
