@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 public class MessageFacadeTest {
     @Test
-    void shouldSendMessage() throws MessageFacadeError {
+    void shouldSendMessage() throws MessageFacadeException {
         String userTest = "testClient";
         String itemsTest = "/snd This is a test message!";
         MessageFacade messageFacade = new MessageFacade();
@@ -30,7 +30,7 @@ public class MessageFacadeTest {
     }
 
     @Test
-    void shouldSetUserNameMessage() throws MessageFacadeError {
+    void shouldSetUserNameMessage() throws MessageFacadeException {
         String userTest = "testClient";
         String itemsTest = "/chid This is a test message!";
         MessageFacade messageFacade = new MessageFacade();
@@ -46,7 +46,7 @@ public class MessageFacadeTest {
     }
 
     @Test
-    void shouldReturnHistoryMessage() throws MessageFacadeError {
+    void shouldReturnHistoryMessage() throws MessageFacadeException {
         String userTest = "testClient";
         String itemsTest = "/hist";
         MessageFacade messageFacade = new MessageFacade();
@@ -68,7 +68,7 @@ public class MessageFacadeTest {
         MessageFacade messageFacade = new MessageFacade();
 
         Exception exception = assertThrows(
-                MessageFacadeError.class,
+                MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
         String expectedMessage = "User wrong command";
@@ -84,7 +84,7 @@ public class MessageFacadeTest {
         MessageFacade messageFacade = new MessageFacade();
 
         Exception exception = assertThrows(
-                MessageFacadeError.class,
+                MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
         String expectedMessage = "User message length > 150";
@@ -100,7 +100,7 @@ public class MessageFacadeTest {
         MessageFacade messageFacade = new MessageFacade();
 
         Exception exception = assertThrows(
-                MessageFacadeError.class,
+                MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
         String expectedMessage = "User wrong command";
