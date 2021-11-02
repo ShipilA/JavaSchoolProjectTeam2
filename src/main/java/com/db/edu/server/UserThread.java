@@ -16,11 +16,19 @@ public class UserThread implements Runnable {
     public void run() {
         try {
             room.addUserToList(user);
-            room.sendMessageToAllOtherUsers(user);
-            room.removeUserFromList(user);
-            user.close();
+            while (true){
+                Message msg = new Message(user.getMessage());
+
+                room.roomMessages.saveMessage(msg);
+
+                room.sendMessageToAllOtherUsers(msg);
+            }
+
         } catch (ServerException ex) {
             //TODO add logger
+        } finally {
+            room.removeUserFromList(user);
+//            user.close();
         }
     }
 }

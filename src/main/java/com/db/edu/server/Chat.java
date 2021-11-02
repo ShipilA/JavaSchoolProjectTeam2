@@ -15,7 +15,9 @@ public class Chat{
             ServerSocket serverSocket = new ServerSocket(9222);
             while(true){
                 Socket socket = serverSocket.accept();
-                UserThread userThread = new UserThread(new User(socket), new Room());
+                UserThread userThread = new UserThread(
+                        new User(socket),
+                        new Room("default"));
                 Thread thread = new Thread(userThread);
                 thread.start();
             }
