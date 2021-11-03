@@ -22,6 +22,7 @@ public class DataBaseTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldSaveMessage() {
         Message msg = new Message("/snd Hello, world!");
+        assert(msg.getData().equals("Hello, world!"));
 //        testServer.getRequest("/snd Hello, world!");
 //        testServer.getRequest("/hist");
 //        testServer.sendResponse();
