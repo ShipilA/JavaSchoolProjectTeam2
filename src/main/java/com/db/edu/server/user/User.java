@@ -30,7 +30,7 @@ public class User {
         try {
             return socket.getOutputStream();
         } catch (IOException | NoSuchElementException e) {
-            throw new ServerException("Exception in reading from user's socket", e);
+            throw new ServerException("Exception in connecting with user's output", e);
         }
     }
 
@@ -39,7 +39,8 @@ public class User {
             Scanner scanner = new Scanner(socket.getInputStream());
             return scanner.nextLine();
         } catch (IOException | NoSuchElementException e) {
-            throw new ServerException("Exception in reading from user's socket", e);
+            close();
+            throw new ServerException("Handling closing user's socket", e);
         }
     }
 
