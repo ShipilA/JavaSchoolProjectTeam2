@@ -3,8 +3,6 @@ package com.db.edu.server.user;
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.rooms.Room;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
