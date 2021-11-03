@@ -5,6 +5,7 @@ import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
+import com.db.edu.server.rooms.RoomContainer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class MessageFacadeTest {
     void shouldSendMessage() throws ServerException {
         String userTest = "testClient";
         String itemsTest = "/snd This is a test message!";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
         Message result = new Message();
         try {
@@ -39,9 +40,9 @@ public class MessageFacadeTest {
     void shouldSetUserNameMessage() throws ServerException {
         String userTest = "testClient";
         String itemsTest = "/chid This is a test message!";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
-        Message result = null;
+        Message result = new Message();
         try {
             result = messageFacade.processIncomingMessage(itemsTest, userTest);
         } catch (MessageFacadeException e) {
@@ -55,9 +56,9 @@ public class MessageFacadeTest {
     void shouldReturnHistoryMessage() throws ServerException {
         String userTest = "testClient";
         String itemsTest = "/hist";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
-        Message result = null;
+        Message result = new Message();
         try {
             result = messageFacade.processIncomingMessage(itemsTest, userTest);
         } catch (MessageFacadeException e) {

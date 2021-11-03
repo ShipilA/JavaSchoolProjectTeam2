@@ -20,7 +20,7 @@ public class Chat {
             log.info("Server successfully started");
             while (true) {
                 Socket socket = serverSocket.accept();
-                User user = new User(socket);
+                User user = new User(socket, roomContainer);
                 log.info("New user connected");
                 //TODO refactor room choosing
                 user.chatInRoom(roomContainer.getRoomWithName("Default room"));
