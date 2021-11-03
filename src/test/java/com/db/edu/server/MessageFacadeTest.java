@@ -4,42 +4,43 @@ import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
+import com.db.edu.server.rooms.RoomContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 public class MessageFacadeTest {
     SendMessage sendMessageStub;
+    String userTest;
+    MessageFacade messageFacade;
+    String itemsTest;
 
     @BeforeEach
     void setUp() {
+        userTest = "testClient";
         sendMessageStub = mock(SendMessage.class);
+        messageFacade = new MessageFacade(new RoomContainer());
     }
 
     @Test
     void shouldSendMessage() {
-        String userTest = "testClient";
-        String itemsTest = "/snd This is a test message!";
-        MessageFacade messageFacade = new MessageFacade();
-
+        itemsTest = "/snd This is a test message!";
         Message result = new Message();
         try {
             result = messageFacade.processIncomingMessage(itemsTest, userTest);
         } catch (MessageFacadeException e) {
             e.printStackTrace();
         }
-
         assertEquals(SendMessage.class, result.getClass());
     }
 
     @Test
     void shouldSetUserNameMessage() {
-        String userTest = "testClient";
-        String itemsTest = "/chid This is a test message!";
-        MessageFacade messageFacade = new MessageFacade(new UserThreadsController());
-
+        itemsTest = "/chid This is a test message!";
         Message result = new Message();
         try {
             result = messageFacade.processIncomingMessage(itemsTest, userTest);
@@ -52,10 +53,7 @@ public class MessageFacadeTest {
 
     @Test
     void shouldReturnHistoryMessage() {
-        String userTest = "testClient";
-        String itemsTest = "/hist";
-        MessageFacade messageFacade = new MessageFacade(new UserThreadsController());
-
+        itemsTest = "/hist";
         Message result = new Message();
         try {
             result = messageFacade.processIncomingMessage(itemsTest, userTest);
@@ -68,10 +66,7 @@ public class MessageFacadeTest {
 
     @Test
     void shouldThrowMessageFacadeErrorWhenWrongHistoryMessage() {
-        String userTest = "testClient";
-        String itemsTest = "/hist This is a test message";
-        MessageFacade messageFacade = new MessageFacade(new UserThreadsController());
-
+        itemsTest = "/hist This is a test message";
         Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
@@ -83,11 +78,10 @@ public class MessageFacadeTest {
     }
 
     @Test
-    void shouldThrowMessageFacadeErrorWhenSendMessageWithMaxLength() {
-        String userTest = "testClient";
-        String itemsTest = "/snd Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales tellus est, eu eleifend nisi euismod a. Cras volutpat sollicitudin interdum. Sed!!!";
-        MessageFacade messageFacade = new MessageFacade(new UserThreadsController());
-
+    void shouldThrowMessageFacadeErrorWhenSendMessageWithOverMaxLength() {
+        itemsTest = "/snd Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
+                " Sed sodales tellus est, eu eleifend nisi euismod a. " +
+                "Cras volutpat sollicitudin interdum. Sed!!!";
         Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
@@ -98,12 +92,10 @@ public class MessageFacadeTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+
     @Test
     void shouldThrowMessageFacadeErrorWhenWrongCommand() {
-        String userTest = "testClient";
-        String itemsTest = "/send This is a test message";
-        MessageFacade messageFacade = new MessageFacade(new UserThreadsController());
-
+        itemsTest = "/send This is a test message";
         Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
@@ -116,10 +108,7 @@ public class MessageFacadeTest {
 
     @Test
     void shouldThrowMessageFacadeErrorWhenMessageSentWithoutCommand() {
-        String userTest = "testClient";
-        String itemsTest = "/Hello";
-        MessageFacade messageFacade = new MessageFacade(new UserThreadsController());
-
+        itemsTest = "/Hello";
         Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
@@ -132,10 +121,43 @@ public class MessageFacadeTest {
 
     @Test
     void shouldThrowMessageFacadeErrorWhenMessageIsInappropriate() {
-        String userTest = "testClient";
-        String itemsTest = "/ snd Hello";
-        MessageFacade messageFacade = new MessageFacade(new UserThreadsController());
+        itemsTest = "/ snd Hello";
+        Exception exception = assertThrows(
+                MessageFacadeException.class,
+                () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void shouldsendMessageWhenSendMessageWithEqualMaxLength() throws MessageFacadeException {
+        itemsTest = "/snd FLpQ9eJVzGLUnobIejVxQ4egg0Bqc0ogJVh1TAppKfUbze" +
+                "WVCElDI7EpWb7jH79ISU7liZnXdERDhjKrX2yGt0EgygCbvG1JyTVqaa" +
+                "Mj9viDPuaUSbYYx1O2yUYvhP90rG7EBTNKcNZufKKa6aClLj";
+        String expectedMessage = "FLpQ9eJVzGLUnobIejVxQ4egg0Bqc0ogJVh1TAppKfUbze" +
+                "WVCElDI7EpWb7jH79ISU7liZnXdERDhjKrX2yGt0EgygCbvG1JyTVqaa" +
+                "Mj9viDPuaUSbYYx1O2yUYvhP90rG7EBTNKcNZufKKa6aClLj";
+
+        assertThat(String.valueOf(messageFacade.processIncomingMessage(itemsTest, userTest))).contains(expectedMessage);
+    }
+
+    @Test
+    void shouldThrowMessageFacadeErrorWhenSendMessageWithZeroLength(){
+        itemsTest = "/snd";
+        Exception exception = assertThrows(
+                MessageFacadeException.class,
+                () -> messageFacade.processIncomingMessage(itemsTest, userTest));
+
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void shouldThrowMessageFacadeErrorWhenZeroLength() {
+        itemsTest = "";
         Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));

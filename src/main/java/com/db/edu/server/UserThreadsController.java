@@ -34,6 +34,7 @@ public class UserThreadsController {
         users.remove(user);
     }
 
+    //todo create read-only
     public synchronized void sendMessageToAllUsers(String message) throws ServerException {
         for (User receiver : users) {
             PrintWriter out = new PrintWriter(receiver.getOutputStream());
