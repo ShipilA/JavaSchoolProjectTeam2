@@ -14,8 +14,7 @@ public class Chat {
     final static Logger log = LoggerFactory.getLogger(Chat.class);
 
     public static void main(String[] args) {
-        try {
-            ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT());
+        try (ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT())) {
             RoomContainer roomContainer = new RoomContainer();
             log.info("Server successfully started");
             while (true) {
@@ -23,6 +22,7 @@ public class Chat {
                 User user = new User(socket, roomContainer);
                 log.info("New user connected");
                 user.chatInRoom(roomContainer.getRoomWithName("Default room"));
+                //todo close sockets
             }
         } catch (IOException e) {
             log.error("Failed to run server: ", e);
