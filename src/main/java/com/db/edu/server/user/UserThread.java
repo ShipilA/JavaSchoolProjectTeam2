@@ -64,7 +64,7 @@ public class UserThread implements Runnable {
     public void processMessages(Message msg) throws ServerException {
         if (msg instanceof SendMessage) {
             room.saveMessage(msg);
-            room.sendMessageToAllOtherUsers(user, msg.toString());
+            room.sendMessageToAllUsers(msg.toString());
         }
         if (msg instanceof HistoryMessage) {
             room.sendMessageHistoryToUser(user);

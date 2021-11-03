@@ -44,13 +44,11 @@ public class Room {
         users.remove(user);
     }
 
-    public synchronized void sendMessageToAllOtherUsers(User user, String message) throws ServerException {
+    public synchronized void sendMessageToAllUsers(String message) throws ServerException {
         for (User receiver : users) {
-            if (!user.equals(receiver)) {
-                PrintWriter out = new PrintWriter(receiver.getOutputStream());
-                out.println(message);
-                out.flush();
-            }
+            PrintWriter out = new PrintWriter(receiver.getOutputStream());
+            out.println(message);
+            out.flush();
         }
     }
 
