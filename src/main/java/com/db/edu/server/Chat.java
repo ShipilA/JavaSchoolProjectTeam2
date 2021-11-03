@@ -22,7 +22,6 @@ public class Chat {
                 Socket socket = serverSocket.accept();
                 User user = new User(socket, roomContainer);
                 log.info("New user connected");
-                //TODO refactor room choosing
                 user.chatInRoom(roomContainer.getRoomWithName("Default room"));
             }
         } catch (IOException e) {

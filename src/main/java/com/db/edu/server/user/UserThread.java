@@ -59,7 +59,7 @@ public class UserThread implements Runnable {
             log.error("Error in UserThread: ", ex);
         } finally {
             room.removeUserFromList(user);
-//            user.close();
+            user.close();
         }
     }
 
