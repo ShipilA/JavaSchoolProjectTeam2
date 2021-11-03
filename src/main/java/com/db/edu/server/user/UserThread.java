@@ -9,11 +9,14 @@ import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
 import com.db.edu.server.rooms.Room;
 import com.db.edu.server.rooms.RoomContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 public class UserThread implements Runnable {
 
+    private static final Logger log = LoggerFactory.getLogger(UserThread.class);
     private final User user;
     private final Room room;
     private RoomContainer roomContainer;
@@ -53,8 +56,7 @@ public class UserThread implements Runnable {
 
         } catch (ServerException ex) {
             System.out.println(ex.getMessage());
-
-            //TODO add logger
+            log.error("Error in UserThread: ", ex);
         } finally {
             room.removeUserFromList(user);
 //            user.close();

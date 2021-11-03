@@ -11,7 +11,7 @@ public class MessageFacade {
         this.roomContainer = roomContainer;
     }
 
-    public MessageFacade () {
+    public MessageFacade() {
     }
 
     public Message processIncomingMessage(String inMessage, String fromUserName) throws MessageFacadeException {
