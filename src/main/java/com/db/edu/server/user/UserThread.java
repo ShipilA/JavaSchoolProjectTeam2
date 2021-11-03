@@ -2,12 +2,12 @@ package com.db.edu.server.user;
 
 import com.db.edu.server.MessageFacade;
 import com.db.edu.server.MessageFacadeException;
+import com.db.edu.server.UserThreadsController;
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
-import com.db.edu.server.UserThreadsController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

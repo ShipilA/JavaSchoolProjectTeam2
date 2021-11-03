@@ -1,7 +1,7 @@
 package com.db.edu.server.user;
 
-import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.UserThreadsController;
+import com.db.edu.server.exception.ServerException;
 
 import java.io.IOException;
 import java.io.OutputStream;

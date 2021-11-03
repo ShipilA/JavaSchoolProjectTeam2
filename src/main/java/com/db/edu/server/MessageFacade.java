@@ -1,6 +1,9 @@
 package com.db.edu.server;
 
-import com.db.edu.server.message.*;
+import com.db.edu.server.message.HistoryMessage;
+import com.db.edu.server.message.Message;
+import com.db.edu.server.message.SendMessage;
+import com.db.edu.server.message.SetUserNameMessage;
 
 public class MessageFacade {
     private static final int MESSAGE_MAX_LENGTH = 150;
@@ -8,9 +11,6 @@ public class MessageFacade {
 
     public MessageFacade(UserThreadsController controller) {
         this.controller = controller;
-    }
-
-    public MessageFacade() {
     }
 
     public Message processIncomingMessage(String inMessage, String fromUserName) throws MessageFacadeException {
@@ -28,10 +28,8 @@ public class MessageFacade {
                 }
                 return new SetUserNameMessage(fromUserName, items[1]);
             }
-        } else if (items.length > 0) {
-            if (items[0].contains("/hist")) {
-                return new HistoryMessage();
-            }
+        } else if (items.length > 0 && items[0].contains("/hist")) {
+            return new HistoryMessage();
         }
 
         throw new MessageFacadeException("User wrong command");

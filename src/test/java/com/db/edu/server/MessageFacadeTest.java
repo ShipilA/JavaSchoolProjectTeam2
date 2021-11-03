@@ -142,7 +142,7 @@ public class MessageFacadeTest {
     }
 
     @Test
-    void shouldThrowMessageFacadeErrorWhenSendMessageWithZeroLength(){
+    void shouldThrowMessageFacadeErrorWhenSendMessageWithZeroLength() {
         itemsTest = "/snd";
         Exception exception = assertThrows(
                 MessageFacadeException.class,
