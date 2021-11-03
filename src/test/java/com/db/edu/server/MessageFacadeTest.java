@@ -9,20 +9,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 public class MessageFacadeTest {
-    private SendMessage sendMessageStub;
     private String userTest;
     private MessageFacade messageFacade;
     private String itemsTest;
     private Exception exception;
     private String expectedMessage;
     private String actualMessage;
+
     @BeforeEach
     void setUp() {
         userTest = "testClient";
-        sendMessageStub = mock(SendMessage.class);
         messageFacade = new MessageFacade(new UserThreadsController());
     }
 
@@ -158,7 +156,7 @@ public class MessageFacadeTest {
     @Test
     void shouldThrowMessageFacadeErrorWhenZeroLength() {
         itemsTest = "";
-        Exception exception = assertThrows(
+        exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
