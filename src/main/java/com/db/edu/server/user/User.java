@@ -2,6 +2,7 @@ package com.db.edu.server.user;
 
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.rooms.Room;
+import com.db.edu.server.rooms.RoomContainer;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,9 +14,15 @@ import java.util.Scanner;
 public class User {
     private final Socket socket;
     private String name = "Default name";
+    private RoomContainer roomContainer;
 
     public User(Socket socket) {
         this.socket = socket;
+    }
+
+    public User(Socket socket, RoomContainer roomContainer) {
+        this.socket = socket;
+        this.roomContainer = roomContainer;
     }
 
     public String getName() {
@@ -52,7 +59,7 @@ public class User {
     }
 
     public void chatInRoom(Room room) {
-        UserThread userThread = new UserThread(this, room);
+        UserThread userThread = new UserThread(this, room, roomContainer);
         Thread thread = new Thread(userThread);
         thread.start();
     }

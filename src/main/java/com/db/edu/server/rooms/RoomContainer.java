@@ -17,4 +17,8 @@ public class RoomContainer {
         return room;
     }
 
+    public boolean isNameTaken(String name) {
+        return rooms.stream().anyMatch(room -> room.isNameTaken(name));
+    }
+
 }
