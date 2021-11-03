@@ -1,3 +1,3 @@
 cd target
-java -jar client-jar-with-dependencies.jar
+java -Dfile.encoding=cp866 -jar client-jar-with-dependencies.jar
 cd ..
