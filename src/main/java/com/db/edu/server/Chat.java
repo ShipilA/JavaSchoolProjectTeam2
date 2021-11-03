@@ -17,7 +17,7 @@ public class Chat {
         try (ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT())) {
             RoomContainer roomContainer = new RoomContainer();
             log.info("Server successfully started");
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 Socket socket = serverSocket.accept();
                 User user = new User(socket, roomContainer);
                 log.info("New user connected");
