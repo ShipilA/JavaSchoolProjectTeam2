@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import org.slf4j.MDC;
 
 public class Chat {
     final static Logger log = LoggerFactory.getLogger(Chat.class);
@@ -26,7 +25,7 @@ public class Chat {
                 user.chatInRoom(roomContainer.getRoomWithName("Default room"));
             }
         } catch (IOException e) {
-            log.error("Failed to run server: {}", e);
+            log.error("Failed to run server: ", e);
         }
     }
 }

@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import static java.lang.System.lineSeparator;
-//import static java.nio.file.Files.writeString;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.WRITE;
 

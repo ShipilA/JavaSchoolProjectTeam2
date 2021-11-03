@@ -1,8 +1,8 @@
 package com.db.edu.server;
 
-public class MessageFacadeException extends Exception{
+public class MessageFacadeException extends Exception {
 
-    MessageFacadeException(String msg){
+    MessageFacadeException(String msg) {
         super(msg);
     }
 }

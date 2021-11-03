@@ -10,19 +10,19 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class User {
-    private String name = "Default name";
     private final Socket socket;
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String newName){
-        name = newName;
-    }
+    private String name = "Default name";
 
     public User(Socket socket) {
         this.socket = socket;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName) {
+        name = newName;
     }
 
     public OutputStream getOutputStream() throws ServerException {

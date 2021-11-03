@@ -5,14 +5,11 @@ import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 public class MessageFacadeTest {
     SendMessage sendMessageStub;

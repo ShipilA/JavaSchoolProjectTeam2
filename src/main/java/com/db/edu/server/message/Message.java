@@ -9,10 +9,10 @@ import static java.lang.System.lineSeparator;
 
 public class Message {
     private static final int MSGMAXLEN = 150;
+    protected String key;
     private String time;
     private String userName = "";
     private String data;
-    protected String key;
 
     public Message(String uName, String uData) {
         time = timeStamp();
@@ -25,7 +25,8 @@ public class Message {
         fromIncomingMessage(incomingMessage);
     }
 
-    public Message() {}
+    public Message() {
+    }
 
 
     public String getData() {

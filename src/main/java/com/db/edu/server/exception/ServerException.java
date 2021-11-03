@@ -1,6 +1,6 @@
 package com.db.edu.server.exception;
 
-public class ServerException extends Exception{
+public class ServerException extends Exception {
     public ServerException() {
         super();
     }

@@ -3,12 +3,13 @@ package com.db.edu.client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.logging.Level;
 
 public class SocketOutputThread implements Runnable {
+    private static final Logger log = LoggerFactory.getLogger(SocketOutputThread.class);
 
     private final Socket socket;
 
@@ -27,7 +28,7 @@ public class SocketOutputThread implements Runnable {
                 out.flush();
             }
         } catch (IOException ex) {
-            //TODO add logger
+            log.error("Error in Socket output: ", ex);
         }
     }
 }

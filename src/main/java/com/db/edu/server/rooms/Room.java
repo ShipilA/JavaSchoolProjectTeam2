@@ -1,9 +1,9 @@
 package com.db.edu.server.rooms;
 
-import com.db.edu.server.message.Message;
-import com.db.edu.server.user.User;
 import com.db.edu.server.database.RoomMessagesDB;
 import com.db.edu.server.exception.ServerException;
+import com.db.edu.server.message.Message;
+import com.db.edu.server.user.User;
 
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -28,11 +28,11 @@ public class Room {
         return name;
     }
 
-    public synchronized void saveMessage(Message msg){
+    public synchronized void saveMessage(Message msg) {
         roomMessages.saveMessage(msg);
     }
 
-    public synchronized String messageHistory(){
+    public synchronized String messageHistory() {
         return roomMessages.getAllMessages();
     }
 
