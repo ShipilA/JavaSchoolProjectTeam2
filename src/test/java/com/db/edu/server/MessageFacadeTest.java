@@ -1,14 +1,13 @@
 package com.db.edu.server;
 
-import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 public class MessageFacadeTest {
@@ -20,7 +19,7 @@ public class MessageFacadeTest {
     }
 
     @Test
-    void shouldSendMessage() throws ServerException {
+    void shouldSendMessage() {
         String userTest = "testClient";
         String itemsTest = "/snd This is a test message!";
         MessageFacade messageFacade = new MessageFacade();
@@ -32,11 +31,11 @@ public class MessageFacadeTest {
             e.printStackTrace();
         }
 
-        Assertions.assertEquals(SendMessage.class, result.getClass());
+        assertEquals(SendMessage.class, result.getClass());
     }
 
     @Test
-    void shouldSetUserNameMessage() throws ServerException {
+    void shouldSetUserNameMessage() {
         String userTest = "testClient";
         String itemsTest = "/chid This is a test message!";
         MessageFacade messageFacade = new MessageFacade();
@@ -48,11 +47,11 @@ public class MessageFacadeTest {
             e.printStackTrace();
         }
 
-        Assertions.assertEquals(SetUserNameMessage.class, result.getClass());
+        assertEquals(SetUserNameMessage.class, result.getClass());
     }
 
     @Test
-    void shouldReturnHistoryMessage() throws ServerException {
+    void shouldReturnHistoryMessage() {
         String userTest = "testClient";
         String itemsTest = "/hist";
         MessageFacade messageFacade = new MessageFacade();
@@ -64,6 +63,37 @@ public class MessageFacadeTest {
             e.printStackTrace();
         }
 
-        Assertions.assertEquals(HistoryMessage.class, result.getClass());
+        assertEquals(HistoryMessage.class, result.getClass());
+    }
+
+    @Test
+    void shouldThrowMessageFacadeErrorWhenMessageSentWithoutCommand() {
+        String userTest = "testClient";
+        String itemsTest = "/Hello";
+        MessageFacade messageFacade = new MessageFacade();
+
+        Exception exception = assertThrows(
+                MessageFacadeException.class,
+                () -> messageFacade.processIncomingMessage(itemsTest, userTest));
+
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void shouldThrowMessageFacadeErrorWhenMessageIsInappropriate() {
+        String userTest = "testClient";
+        String itemsTest = "/ snd Hello";
+        MessageFacade messageFacade = new MessageFacade();
+
+        Exception exception = assertThrows(
+                MessageFacadeException.class,
+                () -> messageFacade.processIncomingMessage(itemsTest, userTest));
+
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }
