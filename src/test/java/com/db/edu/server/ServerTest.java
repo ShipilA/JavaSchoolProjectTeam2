@@ -17,13 +17,4 @@ public class ServerTest implements SysoutCaptureAndAssertionAbility {
     public void tearDown() {
         resetOut();
     }
-
-    @Test
-    public void shouldReturnHistory() {
-//        testServer.getRequest("/snd Hello, world!");
-//        testServer.getRequest("/hist");
-//        testServer.sendResponse();
-
-//        assertSysoutContains("Hello, world!");
-    }
 }
