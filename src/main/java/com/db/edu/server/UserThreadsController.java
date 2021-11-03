@@ -1,4 +1,4 @@
-package com.db.edu.server.rooms;
+package com.db.edu.server;
 
 import com.db.edu.server.database.RoomMessagesDB;
 import com.db.edu.server.exception.ServerException;
@@ -9,23 +9,13 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Room {
+public class UserThreadsController {
 
-    private final String name;
     private final Set<User> users = new HashSet<>();
     private final RoomMessagesDB roomMessages;
 
-    public Room(String name) {
-        this.name = name;
-        roomMessages = new RoomMessagesDB(name);
-    }
-
-    public Room() {
-        this("Default room");
-    }
-
-    public String getName() {
-        return name;
+    public UserThreadsController() {
+        roomMessages = new RoomMessagesDB("Default room");
     }
 
     public synchronized void saveMessage(Message msg) {
@@ -44,6 +34,7 @@ public class Room {
         users.remove(user);
     }
 
+    //todo create read-only
     public synchronized void sendMessageToAllUsers(String message) throws ServerException {
         for (User receiver : users) {
             PrintWriter out = new PrintWriter(receiver.getOutputStream());
@@ -64,8 +55,12 @@ public class Room {
         out.flush();
     }
 
-    public synchronized boolean isNameTaken(String name) {
-        return users.stream().anyMatch(user -> user.getName().equals(name));
+    public boolean isNameTaken(String name) {
+        for (User user : users) {
+            if (name.equals(user.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
-
 }

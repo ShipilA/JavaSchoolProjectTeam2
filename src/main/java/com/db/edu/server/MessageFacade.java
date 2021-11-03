@@ -1,14 +1,13 @@
 package com.db.edu.server;
 
 import com.db.edu.server.message.*;
-import com.db.edu.server.rooms.RoomContainer;
 
 public class MessageFacade {
     private static final int MESSAGE_MAX_LENGTH = 150;
-    private RoomContainer roomContainer;
+    private UserThreadsController controller;
 
-    public MessageFacade(RoomContainer roomContainer) {
-        this.roomContainer = roomContainer;
+    public MessageFacade(UserThreadsController controller) {
+        this.controller = controller;
     }
 
     public MessageFacade() {
@@ -24,13 +23,10 @@ public class MessageFacade {
                 return new SendMessage(fromUserName, items[1]);
             }
             if (items[0].contains("/chid")) {
-                if (roomContainer.isNameTaken(items[1])) {
+                if (controller.isNameTaken(items[1])) {
                     throw new MessageFacadeException("User name is already taken");
                 }
                 return new SetUserNameMessage(fromUserName, items[1]);
-            }
-            if (items[0].contains("/chroom")) {
-                return new ChRoomMessage(fromUserName, items[1]);
             }
         } else if (items.length > 0) {
             if (items[0].contains("/hist")) {

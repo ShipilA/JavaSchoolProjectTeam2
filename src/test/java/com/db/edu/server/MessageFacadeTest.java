@@ -4,30 +4,24 @@ import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
-import com.db.edu.server.rooms.RoomContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.fest.assertions.Assertions.assertThat;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 public class MessageFacadeTest {
-    private SendMessage sendMessageStub;
-    private String userTest;
-    private MessageFacade messageFacade;
-    private String itemsTest;
-    private String expectedMessage;
-    private String actualMessage;
-    private Exception exception;
+    SendMessage sendMessageStub;
+    String userTest;
+    MessageFacade messageFacade;
+    String itemsTest;
 
     @BeforeEach
     void setUp() {
         userTest = "testClient";
         sendMessageStub = mock(SendMessage.class);
-        messageFacade = new MessageFacade(new RoomContainer());
-
+        messageFacade = new MessageFacade(new UserThreadsController());
     }
 
     @Test
@@ -71,12 +65,12 @@ public class MessageFacadeTest {
     @Test
     void shouldThrowMessageFacadeErrorWhenWrongHistoryMessage() {
         itemsTest = "/hist This is a test message";
-        exception = assertThrows(
+        Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
-        expectedMessage = "User wrong command";
-        actualMessage = exception.getMessage();
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -86,12 +80,12 @@ public class MessageFacadeTest {
         itemsTest = "/snd Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
                 " Sed sodales tellus est, eu eleifend nisi euismod a. " +
                 "Cras volutpat sollicitudin interdum. Sed!!!";
-        exception = assertThrows(
+        Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
-        expectedMessage = "User message length > 150";
-        actualMessage = exception.getMessage();
+        String expectedMessage = "User message length > 150";
+        String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -100,12 +94,12 @@ public class MessageFacadeTest {
     @Test
     void shouldThrowMessageFacadeErrorWhenWrongCommand() {
         itemsTest = "/send This is a test message";
-        exception = assertThrows(
+        Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
-        expectedMessage = "User wrong command";
-        actualMessage = exception.getMessage();
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -113,12 +107,12 @@ public class MessageFacadeTest {
     @Test
     void shouldThrowMessageFacadeErrorWhenMessageSentWithoutCommand() {
         itemsTest = "/Hello";
-        exception = assertThrows(
+        Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
-        expectedMessage = "User wrong command";
-        actualMessage = exception.getMessage();
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -126,12 +120,12 @@ public class MessageFacadeTest {
     @Test
     void shouldThrowMessageFacadeErrorWhenMessageIsInappropriate() {
         itemsTest = "/ snd Hello";
-        exception = assertThrows(
+        Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
-        expectedMessage = "User wrong command";
-        actualMessage = exception.getMessage();
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
@@ -140,7 +134,7 @@ public class MessageFacadeTest {
         itemsTest = "/snd FLpQ9eJVzGLUnobIejVxQ4egg0Bqc0ogJVh1TAppKfUbze" +
                 "WVCElDI7EpWb7jH79ISU7liZnXdERDhjKrX2yGt0EgygCbvG1JyTVqaa" +
                 "Mj9viDPuaUSbYYx1O2yUYvhP90rG7EBTNKcNZufKKa6aClLj";
-        expectedMessage = "FLpQ9eJVzGLUnobIejVxQ4egg0Bqc0ogJVh1TAppKfUbze" +
+        String expectedMessage = "FLpQ9eJVzGLUnobIejVxQ4egg0Bqc0ogJVh1TAppKfUbze" +
                 "WVCElDI7EpWb7jH79ISU7liZnXdERDhjKrX2yGt0EgygCbvG1JyTVqaa" +
                 "Mj9viDPuaUSbYYx1O2yUYvhP90rG7EBTNKcNZufKKa6aClLj";
 
@@ -150,24 +144,24 @@ public class MessageFacadeTest {
     @Test
     void shouldThrowMessageFacadeErrorWhenSendMessageWithZeroLength(){
         itemsTest = "/snd";
-        exception = assertThrows(
+        Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
-        expectedMessage = "User wrong command";
-        actualMessage = exception.getMessage();
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
     void shouldThrowMessageFacadeErrorWhenZeroLength() {
         itemsTest = "";
-        exception = assertThrows(
+        Exception exception = assertThrows(
                 MessageFacadeException.class,
                 () -> messageFacade.processIncomingMessage(itemsTest, userTest));
 
-        expectedMessage = "User wrong command";
-        actualMessage = exception.getMessage();
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
 }
