@@ -2,12 +2,12 @@ package com.db.edu.server.user;
 
 import com.db.edu.server.MessageFacade;
 import com.db.edu.server.MessageFacadeException;
+import com.db.edu.server.UserThreadsController;
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
-import com.db.edu.server.UserThreadsController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +39,7 @@ public class UserThread implements Runnable {
                         try {
                             controller.sendMessageToUser(user, ex.getMessage());
                         } catch (ServerException e) {
-                            e.printStackTrace();
+                            log.error("error in userthread ", e);
                             System.out.println(ex.getMessage());
                         }
                     }
@@ -51,6 +51,8 @@ public class UserThread implements Runnable {
             log.error("Error in UserThread: ", ex);
         } finally {
             controller.removeUserFromList(user);
+            user.close();
+            System.out.println("Connection with user is closed\n");
         }
     }
 

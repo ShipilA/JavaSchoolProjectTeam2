@@ -144,7 +144,7 @@ public class MessageFacadeTest {
     }
 
     @Test
-    void shouldThrowMessageFacadeErrorWhenSendMessageWithZeroLength(){
+    void shouldThrowMessageFacadeErrorWhenSendMessageWithZeroLength() {
         itemsTest = "/snd";
         exception = assertThrows(
                 MessageFacadeException.class,

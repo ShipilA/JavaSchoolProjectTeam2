@@ -1,7 +1,7 @@
 package com.db.edu.server.user;
 
-import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.UserThreadsController;
+import com.db.edu.server.exception.ServerException;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -30,7 +30,7 @@ public class User {
         try {
             return socket.getOutputStream();
         } catch (IOException | NoSuchElementException e) {
-            throw new ServerException("Exception in reading from user's socket", e);
+            throw new ServerException("Exception in connecting with user's output", e);
         }
     }
 
@@ -39,22 +39,24 @@ public class User {
             Scanner scanner = new Scanner(socket.getInputStream());
             return scanner.nextLine();
         } catch (IOException | NoSuchElementException e) {
-            throw new ServerException("Exception in reading from user's socket", e);
+            close();
+            throw new ServerException("Handling closing user's socket", e);
         }
     }
 
-    public void close() throws ServerException {
+    public void close() {
         try {
             socket.close();
         } catch (IOException | NoSuchElementException e) {
-            throw new ServerException("Exception in closing user's socket", e);
+            System.out.println("Socket connection is closed\n");
         }
     }
 
-    public void startChat(UserThreadsController controller) {
+    public UserThread startChat(UserThreadsController controller) {
         UserThread userThread = new UserThread(this, controller);
         Thread thread = new Thread(userThread);
         thread.start();
+        return userThread;
     }
 
     @Override
@@ -62,10 +64,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(socket.getPort(), user.socket.getPort()) &&
-                Objects.equals(socket.getLocalAddress(), user.socket.getLocalAddress()) &&
-                Objects.equals(socket.getLocalPort(), user.socket.getLocalPort()) &&
-                Objects.equals(name, user.name);
+        return socket.equals(user.socket) && Objects.equals(name, user.name);
     }
 
     @Override

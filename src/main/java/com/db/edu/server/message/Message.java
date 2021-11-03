@@ -42,11 +42,11 @@ public class Message {
     }
 
     public String toString() {
-        return String.format("%s %s" + lineSeparator() + "%s", time, userName, data);
+        return String.format("%s %s%s %s", time, lineSeparator(), userName, data);
     }
 
     public String toCSVLine(String separator) {
-        return String.format("%s" + separator + "%s" + separator + "%s", time, userName, data);
+        return String.format("%s%s%s %s%s", time, separator, userName, separator, data);
     }
 
     public Message fromCSVLine(String data) {

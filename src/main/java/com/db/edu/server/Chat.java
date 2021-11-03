@@ -10,14 +10,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Chat {
-    final static Logger log = LoggerFactory.getLogger(Chat.class);
+    static final Logger log = LoggerFactory.getLogger(Chat.class);
 
     public static void main(String[] args) {
-        try {
-            ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT());
+        try (ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT())) {
             UserThreadsController controller = new UserThreadsController();
+
             log.info("Server successfully started");
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 Socket socket = serverSocket.accept();
                 User user = new User(socket);
                 log.info("New user connected");
