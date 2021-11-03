@@ -21,24 +21,14 @@ public class Chat {
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT())) {
-
             UserThreadsController controller = new UserThreadsController();
-            Set<UserThread> threads = new HashSet<>();
-            ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
             log.info("Server successfully started");
             while (!Thread.currentThread().isInterrupted()) {
                 Socket socket = serverSocket.accept();
                 User user = new User(socket);
                 log.info("New user connected");
-                threads.add(user.startChat(controller));
-                for (UserThread thread : threads) {
-                    ScheduledFuture future = scheduledExecutorService.schedule(thread, 1, TimeUnit.SECONDS);
-                    if (!future.isDone()) {
-                        scheduledExecutorService.shutdown();
-                        threads.remove(thread);
-                    }
-                }
+                user.startChat(controller);
             }
         } catch (IOException e) {
             log.error("Failed to run server: ", e);
