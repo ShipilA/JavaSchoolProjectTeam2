@@ -4,6 +4,7 @@ import com.db.edu.server.message.HistoryMessage;
 import com.db.edu.server.message.Message;
 import com.db.edu.server.message.SendMessage;
 import com.db.edu.server.message.SetUserNameMessage;
+import com.db.edu.server.rooms.RoomContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +39,7 @@ public class MessageFacadeTest {
     void shouldSetUserNameMessage() {
         String userTest = "testClient";
         String itemsTest = "/chid This is a test message!";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
         Message result = new Message();
         try {
@@ -54,7 +55,7 @@ public class MessageFacadeTest {
     void shouldReturnHistoryMessage() {
         String userTest = "testClient";
         String itemsTest = "/hist";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
         Message result = new Message();
         try {
@@ -70,7 +71,7 @@ public class MessageFacadeTest {
     void shouldThrowMessageFacadeErrorWhenWrongHistoryMessage() {
         String userTest = "testClient";
         String itemsTest = "/hist This is a test message";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
         Exception exception = assertThrows(
                 MessageFacadeException.class,
@@ -86,7 +87,7 @@ public class MessageFacadeTest {
     void shouldThrowMessageFacadeErrorWhenSendMessageWithMaxLength() {
         String userTest = "testClient";
         String itemsTest = "/snd Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales tellus est, eu eleifend nisi euismod a. Cras volutpat sollicitudin interdum. Sed!!!";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
         Exception exception = assertThrows(
                 MessageFacadeException.class,
@@ -102,7 +103,7 @@ public class MessageFacadeTest {
     void shouldThrowMessageFacadeErrorWhenWrongCommand() {
         String userTest = "testClient";
         String itemsTest = "/send This is a test message";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
         Exception exception = assertThrows(
                 MessageFacadeException.class,
@@ -118,7 +119,7 @@ public class MessageFacadeTest {
     void shouldThrowMessageFacadeErrorWhenMessageSentWithoutCommand() {
         String userTest = "testClient";
         String itemsTest = "/Hello";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
         Exception exception = assertThrows(
                 MessageFacadeException.class,
@@ -134,7 +135,7 @@ public class MessageFacadeTest {
     void shouldThrowMessageFacadeErrorWhenMessageIsInappropriate() {
         String userTest = "testClient";
         String itemsTest = "/ snd Hello";
-        MessageFacade messageFacade = new MessageFacade();
+        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
 
         Exception exception = assertThrows(
                 MessageFacadeException.class,
