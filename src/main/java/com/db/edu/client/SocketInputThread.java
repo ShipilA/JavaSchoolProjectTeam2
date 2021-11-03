@@ -3,8 +3,8 @@ package com.db.edu.client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.Socket;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class SocketInputThread implements Runnable {
@@ -26,9 +26,7 @@ public class SocketInputThread implements Runnable {
                 }
             }
         } catch (IOException ex) {
-            log.warn("ProgramFinished");
-            //TODO add logger
-            log.error("Failed to process connection: {}", ex);
+            log.error("Failed to process connection: ", ex);
         }
     }
 }

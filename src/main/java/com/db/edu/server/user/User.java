@@ -2,27 +2,35 @@ package com.db.edu.server.user;
 
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.rooms.Room;
+import com.db.edu.server.rooms.RoomContainer;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class User {
-    private String name = "Default name";
     private final Socket socket;
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String newName){
-        name = newName;
-    }
+    private String name = "Default name";
+    private RoomContainer roomContainer;
 
     public User(Socket socket) {
         this.socket = socket;
+    }
+
+    public User(Socket socket, RoomContainer roomContainer) {
+        this.socket = socket;
+        this.roomContainer = roomContainer;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName) {
+        name = newName;
     }
 
     public OutputStream getOutputStream() throws ServerException {
@@ -51,8 +59,24 @@ public class User {
     }
 
     public void chatInRoom(Room room) {
-        UserThread userThread = new UserThread(this, room);
+        UserThread userThread = new UserThread(this, room, roomContainer);
         Thread thread = new Thread(userThread);
         thread.start();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(socket.getPort(), user.socket.getPort()) &&
+                Objects.equals(socket.getLocalAddress(), user.socket.getLocalAddress()) &&
+                Objects.equals(socket.getLocalPort(), user.socket.getLocalPort()) &&
+                Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(socket, name);
     }
 }
