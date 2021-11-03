@@ -43,11 +43,11 @@ public class User {
         }
     }
 
-    public void close() throws ServerException {
+    public void close() {
         try {
             socket.close();
         } catch (IOException | NoSuchElementException e) {
-            throw new ServerException("Exception in closing user's socket", e);
+            System.out.println("Socket connection is closed\n");
         }
     }
 
@@ -63,10 +63,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(socket.getPort(), user.socket.getPort()) &&
-                Objects.equals(socket.getLocalAddress(), user.socket.getLocalAddress()) &&
-                Objects.equals(socket.getLocalPort(), user.socket.getLocalPort()) &&
-                Objects.equals(name, user.name);
+        return socket.equals(user.socket) && Objects.equals(name, user.name);
     }
 
     @Override

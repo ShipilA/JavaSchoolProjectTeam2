@@ -13,13 +13,15 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Chat {
     final static Logger log = LoggerFactory.getLogger(Chat.class);
 
     public static void main(String[] args) {
-        try {
-            ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT());
+        try (ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT())) {
+
             UserThreadsController controller = new UserThreadsController();
             Set<UserThread> threads = new HashSet<>();
             ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
@@ -30,10 +32,13 @@ public class Chat {
                 User user = new User(socket);
                 log.info("New user connected");
                 threads.add(user.startChat(controller));
-//                for (UserThread thread: threads) {
-//                    ScheduledFuture future = scheduledExecutorService.schedule(thread , 10 , TimeUnit.SECONDS );
-//                    if (thread.)
-//                }
+                for (UserThread thread : threads) {
+                    ScheduledFuture future = scheduledExecutorService.schedule(thread, 1, TimeUnit.SECONDS);
+                    if (!future.isDone()) {
+                        scheduledExecutorService.shutdown();
+                        threads.remove(thread);
+                    }
+                }
             }
         } catch (IOException e) {
             log.error("Failed to run server: ", e);

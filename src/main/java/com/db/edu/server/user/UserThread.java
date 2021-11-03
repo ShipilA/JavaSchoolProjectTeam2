@@ -51,6 +51,8 @@ public class UserThread implements Runnable {
             log.error("Error in UserThread: ", ex);
         } finally {
             controller.removeUserFromList(user);
+            user.close();
+            System.out.println("Connection with user is closed\n");
         }
     }
 
