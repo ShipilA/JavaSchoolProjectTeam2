@@ -51,10 +51,11 @@ public class User {
         }
     }
 
-    public void startChat(UserThreadsController controller) {
+    public UserThread startChat(UserThreadsController controller) {
         UserThread userThread = new UserThread(this, controller);
         Thread thread = new Thread(userThread);
         thread.start();
+        return userThread;
     }
 
     @Override
