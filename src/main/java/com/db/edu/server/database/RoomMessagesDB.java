@@ -12,7 +12,7 @@ import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.WRITE;
 
 public class RoomMessagesDB implements DataBase {
-    private File tableFile;
+    private final File tableFile;
 
     public RoomMessagesDB(String roomName) {
         tableFile = new File(roomName + ".csv");
@@ -31,7 +31,10 @@ public class RoomMessagesDB implements DataBase {
     private void appendDataToTable(String data) {
         try {
             if (!tableFile.exists()) {
-                tableFile.createNewFile();
+                if (!tableFile.createNewFile()) {
+                    throw new IOException("Couldn't create file\n");
+                }
+
             }
             Files.write(tableFile.toPath(), (data + lineSeparator()).getBytes(StandardCharsets.UTF_8), WRITE, APPEND);
         } catch (IOException e) {

@@ -1,5 +1,6 @@
 package com.db.edu.server;
 
+import com.db.edu.SocketHolder;
 import com.db.edu.server.rooms.RoomContainer;
 import com.db.edu.server.user.User;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ public class Chat {
 
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(9222);
+            ServerSocket serverSocket = new ServerSocket(SocketHolder.getPORT());
             RoomContainer roomContainer = new RoomContainer();
             log.info("Server successfully started");
             while (true) {

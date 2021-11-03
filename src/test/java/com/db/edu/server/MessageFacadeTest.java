@@ -25,7 +25,7 @@ public class MessageFacadeTest {
         String itemsTest = "/snd This is a test message!";
         MessageFacade messageFacade = new MessageFacade();
 
-        Message result = null;
+        Message result = new Message();
         try {
             result = messageFacade.processIncomingMessage(itemsTest, userTest);
         } catch (MessageFacadeException e) {

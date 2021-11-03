@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class SocketOutputThread implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(SocketOutputThread.class);
-
     private final Socket socket;
 
     public SocketOutputThread(Socket socket) {

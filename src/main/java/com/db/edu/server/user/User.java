@@ -3,10 +3,13 @@ package com.db.edu.server.user;
 import com.db.edu.server.exception.ServerException;
 import com.db.edu.server.rooms.Room;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class User {
@@ -54,5 +57,21 @@ public class User {
         UserThread userThread = new UserThread(this, room);
         Thread thread = new Thread(userThread);
         thread.start();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(socket.getPort(), user.socket.getPort()) &&
+                Objects.equals(socket.getLocalAddress(), user.socket.getLocalAddress()) &&
+                Objects.equals(socket.getLocalPort(), user.socket.getLocalPort()) &&
+                Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(socket, name);
     }
 }
