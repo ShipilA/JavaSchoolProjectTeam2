@@ -60,6 +60,7 @@ public class UserThread implements Runnable {
         } finally {
             room.removeUserFromList(user);
             user.close();
+            System.out.println("Connection with user is closed\n");
         }
     }
 
