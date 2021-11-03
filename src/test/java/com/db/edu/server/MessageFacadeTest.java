@@ -23,7 +23,7 @@ public class MessageFacadeTest {
     void setUp() {
         userTest = "testClient";
         sendMessageStub = mock(SendMessage.class);
-        MessageFacade messageFacade = new MessageFacade(new RoomContainer());
+        messageFacade = new MessageFacade(new RoomContainer());
     }
 
     @Test
@@ -35,7 +35,6 @@ public class MessageFacadeTest {
         } catch (MessageFacadeException e) {
             e.printStackTrace();
         }
-
         assertEquals(SendMessage.class, result.getClass());
     }
 
