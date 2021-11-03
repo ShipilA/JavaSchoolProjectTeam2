@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.stream.Stream;
 
 import static java.lang.System.lineSeparator;
 import static java.nio.file.StandardOpenOption.APPEND;
@@ -44,9 +45,8 @@ public class RoomMessagesDB implements DataBase {
 
     private String getDataFromTable() {
         StringBuilder out = new StringBuilder();
-        try {
-            Files.lines(tableFile.toPath()) //readAllLines
-                    .forEach(s -> out.append(new Message().fromCSVLine(s)).append(lineSeparator()));
+        try (Stream<String> lines = Files.lines(tableFile.toPath())) {
+            lines.forEach(s -> out.append(new Message().fromCSVLine(s)).append(lineSeparator()));
         } catch (IOException e) {
             log.error("Error ", e);
         }

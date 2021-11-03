@@ -39,7 +39,7 @@ public class UserThread implements Runnable {
                         try {
                             controller.sendMessageToUser(user, ex.getMessage());
                         } catch (ServerException e) {
-                            e.printStackTrace();
+                            log.error("error in userthread ", e);
                             System.out.println(ex.getMessage());
                         }
                     }
