@@ -40,7 +40,7 @@ public class MessageFacadeTest {
         String itemsTest = "/chid This is a test message!";
         MessageFacade messageFacade = new MessageFacade();
 
-        Message result = null;
+        Message result = new Message();
         try {
             result = messageFacade.processIncomingMessage(itemsTest, userTest);
         } catch (MessageFacadeException e) {
@@ -56,7 +56,7 @@ public class MessageFacadeTest {
         String itemsTest = "/hist";
         MessageFacade messageFacade = new MessageFacade();
 
-        Message result = null;
+        Message result = new Message();
         try {
             result = messageFacade.processIncomingMessage(itemsTest, userTest);
         } catch (MessageFacadeException e) {
@@ -64,6 +64,54 @@ public class MessageFacadeTest {
         }
 
         assertEquals(HistoryMessage.class, result.getClass());
+    }
+
+    @Test
+    void shouldThrowMessageFacadeErrorWhenWrongHistoryMessage() {
+        String userTest = "testClient";
+        String itemsTest = "/hist This is a test message";
+        MessageFacade messageFacade = new MessageFacade();
+
+        Exception exception = assertThrows(
+                MessageFacadeException.class,
+                () -> messageFacade.processIncomingMessage(itemsTest, userTest));
+
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void shouldThrowMessageFacadeErrorWhenSendMessageWithMaxLength() {
+        String userTest = "testClient";
+        String itemsTest = "/snd Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales tellus est, eu eleifend nisi euismod a. Cras volutpat sollicitudin interdum. Sed!!!";
+        MessageFacade messageFacade = new MessageFacade();
+
+        Exception exception = assertThrows(
+                MessageFacadeException.class,
+                () -> messageFacade.processIncomingMessage(itemsTest, userTest));
+
+        String expectedMessage = "User message length > 150";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void shouldThrowMessageFacadeErrorWhenWrongCommand() {
+        String userTest = "testClient";
+        String itemsTest = "/send This is a test message";
+        MessageFacade messageFacade = new MessageFacade();
+
+        Exception exception = assertThrows(
+                MessageFacadeException.class,
+                () -> messageFacade.processIncomingMessage(itemsTest, userTest));
+
+        String expectedMessage = "User wrong command";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
